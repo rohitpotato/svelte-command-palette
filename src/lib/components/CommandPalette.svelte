@@ -157,7 +157,6 @@
 	const formattedEscKey = parseKeybinding('Esc').flat().join('');
 </script>
 
-<button>Hey there</button>
 <Portal target="body">
 	<div id="wrapper" bind:this={wrapperElement}>
 		{#if isPaletteVisible}
