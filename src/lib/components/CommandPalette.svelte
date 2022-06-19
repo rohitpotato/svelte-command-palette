@@ -21,6 +21,7 @@
 	let lastActiveElement: HTMLElement;
 	let searchResults: commands = [];
 	const searchInputId = 'paletteInput';
+	let isWrapperClickHandlerSet = false;
 
 	let actions: commands = [];
 
@@ -106,21 +107,17 @@
 	};
 
 	onMount(() => {
-		if (wrapperElement) {
-			const shortcuts = createShortcuts({
-				actions: commands
-			});
-			unsubscribeKbdListener = tinyKeys(window, {
-				...shortcuts,
-				'$mod+k': togglePalette,
-				Escape: closePalette,
-				ArrowUp: handleArrowUp,
-				ArrowDown: handleArrowDown,
-				Enter: handleEnterKey
-			});
-
-			wrapperElement.addEventListener('click', handleOutsideClick);
-		}
+		const shortcuts = createShortcuts({
+			actions: commands
+		});
+		unsubscribeKbdListener = tinyKeys(window, {
+			...shortcuts,
+			'$mod+k': togglePalette,
+			Escape: closePalette,
+			ArrowUp: handleArrowUp,
+			ArrowDown: handleArrowDown,
+			Enter: handleEnterKey
+		});
 	});
 
 	const fuse = createFuse(actions);
@@ -145,6 +142,13 @@
 
 	afterUpdate(() => {
 		focusSearchInput();
+		if (wrapperElement && !isWrapperClickHandlerSet) {
+			wrapperElement?.addEventListener('click', handleOutsideClick);
+			isWrapperClickHandlerSet = true;
+		}
+		if (!isPaletteVisible) {
+			isWrapperClickHandlerSet = false;
+		}
 	});
 
 	onDestroy(() => {
@@ -158,8 +162,8 @@
 </script>
 
 <Portal target="body">
-	<div id="wrapper" bind:this={wrapperElement}>
-		{#if isPaletteVisible}
+	{#if isPaletteVisible}
+		<div id="wrapper" bind:this={wrapperElement}>
 			<div
 				class="paletteWrapper"
 				role="combobox"
@@ -192,8 +196,8 @@
 					<ResultPanel />
 				</div>
 			</div>
-		{/if}
-	</div>
+		</div>
+	{/if}
 </Portal>
 
 <style>
