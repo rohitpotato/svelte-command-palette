@@ -55,7 +55,15 @@ const runAction = ({ action }: { action: action }) => {
 	if (canActionRun({ action, storeProps, storeMethods }) && onRun) {
 		updatePaletteStoreAfterActionExec(actionId);
 		onRun({ action, storeProps, storeMethods });
+		return true;
 	}
+	paletteStore.update((n) => {
+		return {
+			...n,
+			isVisible: false
+		};
+	});
+	return false;
 };
 
 const createFuse = (actions: commands) =>
