@@ -14,9 +14,11 @@
 	afterUpdate(() => {
 		if (action.actionId === $paletteStore.activeCommandId && elRef) {
 			isActive = true;
-			elRef.scrollIntoView({
-				behavior: 'smooth',
-				block: 'nearest'
+			requestAnimationFrame(() => {
+				elRef.scrollIntoView({
+					behavior: 'smooth',
+					block: 'nearest'
+				});
 			});
 		} else {
 			isActive = false;
@@ -33,6 +35,21 @@
 		const parsedShortcut = parseKeybinding(action.shortcut);
 		formattedShortcut = parsedShortcut.flat().filter((s) => s.length > 0);
 	}
+
+	const onMouseEnter = () => {
+		isActive = true;
+		paletteStore.update((value) => {
+			return {
+				...value,
+				activeCommandId: action.actionId,
+				selectedCommandId: action.actionId
+			};
+		});
+	};
+
+	const onMouseLeave = () => {
+		isActive = false;
+	};
 </script>
 
 <li
@@ -41,11 +58,13 @@
 	bind:this={elRef}
 	on:click={handleRunAction}
 	class:selected={isActive}
+	on:mouseenter={onMouseEnter}
+	on:mouseleave={onMouseLeave}
 >
 	<div>
 		<h4 class="title">{action.title}</h4>
 		<p class="subtitle">{action.subTitle}</p>
-		<p class="description">{action.description}</p>
+		<p class="description">{action.description || ''}</p>
 	</div>
 	<div class="shortcuts">
 		{#each formattedShortcut as shortcut}
@@ -67,9 +86,6 @@
 		align-items: center;
 	}
 
-	li:hover {
-		background: #edf2f7;
-	}
 	.selected {
 		background: #edf2f7;
 	}

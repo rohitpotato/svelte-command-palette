@@ -13,17 +13,17 @@
 	onDestroy(unsubscribe);
 </script>
 
-<ul role="listbox">
-	{#if actions.length > 0}
+{#if actions.length > 0}
+	<ul role="listbox">
 		{#each actions as action (action.actionId)}
 			<Result {action} />
 		{/each}
-	{:else}
-		<div class="no-results">
-			<span> No results found</span>
-		</div>
-	{/if}
-</ul>
+	</ul>
+{:else}
+	<div class="no-results">
+		<span> No results found</span>
+	</div>
+{/if}
 
 <style>
 	ul {
