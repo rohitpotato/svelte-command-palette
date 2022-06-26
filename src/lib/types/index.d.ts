@@ -30,6 +30,7 @@ export interface storeParams {
 	selectedCommandId: ActionId;
 	calledActions: Array<ActionId>;
 	results: commands;
+	[key: string]: any;
 }
 
 export interface actionMap {
