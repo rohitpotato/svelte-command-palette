@@ -2,7 +2,11 @@
 module.exports = {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
 	theme: {
-		extend: {}
+		extend: {
+			colors: {
+				'svelte-brand': '#e44c1c'
+			}
+		}
 	},
 	plugins: []
 };

@@ -1,6 +1,5 @@
 <script>
 	import Hero from '../components/Hero.svelte';
-	import Navbar from '../components/Navbar.svelte';
 	import CommandPalette, { defineActions, paletteStore } from '../lib';
 
 	let counter = 0;
@@ -125,7 +124,6 @@
 
 <CommandPalette commands={actions} />
 <div class="px-8">
-	<Navbar />
 	<Hero {incrementCounter} {counter} {openCommandPalette} />
 </div>
 
