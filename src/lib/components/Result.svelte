@@ -3,7 +3,7 @@
 	import { afterUpdate } from 'svelte';
 	import { runAction } from '../utils';
 	import KeyboardButton from './KeyboardButton.svelte';
-	import { parseKeybinding } from 'tinykeys';
+	import * as tinykeys from 'tinykeys';
 	import type { action } from '$lib/types';
 
 	export let action: action;
@@ -32,7 +32,7 @@
 	};
 
 	if (action.shortcut) {
-		const parsedShortcut = parseKeybinding(action.shortcut);
+		const parsedShortcut = tinykeys.parseKeybinding(action.shortcut);
 		formattedShortcut = parsedShortcut.flat().filter((s) => s.length > 0);
 	}
 
@@ -41,8 +41,8 @@
 		paletteStore.update((value) => {
 			return {
 				...value,
-				activeCommandId: action.actionId,
-				selectedCommandId: action.actionId
+				activeCommandId: action.actionId || '',
+				selectedCommandId: action.actionId || ''
 			};
 		});
 	};
