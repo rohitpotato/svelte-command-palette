@@ -1,0 +1,31 @@
+<script>
+	import CommandPalette, { defineActions } from 'svelte-command-palette';
+	{/* Render command palette at the root of your application */}
+	<CommandPalette
+
+		actions={defineActions([
+			{
+				// Unique identifier for your action
+				id: '1',
+				// title for you action
+				title: 'Go to github',
+				// subtitle for the action
+				subTitle: 'Press to redirect to github',
+				// description of the action
+				description: '1. something going here idk about?',
+				// called when the action is triggered along with palette state and methods
+				onRun: ({ action, storeProps, storeMethods }) => {
+					console.log('do something');
+				},
+				// decide whether to run the action based on your palette state
+				canActionRun: ({ action, storeProps, storeMethods }) => {
+					return true;
+				},
+				// keyboard shortcut to call the action
+				shortcut: 'G G',
+				// allows searching for actions via keywords
+				keywords: ['git', 'github']
+			}
+		])}
+	/>
+</script>

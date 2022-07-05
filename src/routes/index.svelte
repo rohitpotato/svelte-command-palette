@@ -1,4 +1,6 @@
 <script>
+import { goto } from '$app/navigation';
+
 	import Hero from '../components/Hero.svelte';
 	import CommandPalette, { defineActions, paletteStore } from '../lib';
 
@@ -13,13 +15,12 @@
 
 	let actions = defineActions([
 		{
-			title: 'Title 1',
-			subTitle: 'this is the subtitle for title 1',
-			description: '1. something going here idk about?',
-			onRun: ({ storeProps }) => {
-				console.log('do something');
+			title: 'Go to docs',
+			subTitle: 'Learn how to use svelte-command-palette',
+			onRun: () => {
+				goto('/docs')
 			},
-			shortcut: 'P P'
+			shortcut: 'D D'
 		},
 		{
 			title: 'Increment Counter',
@@ -73,37 +74,14 @@
 		},
 
 		{
-			title: 'Title 7',
-			subTitle: 'this is the subtitle for title 7',
-			description: '7. something going here idk about?',
-			onRun: ({ storeProps }) => {
-				window.open('https://github.com');
-			}
+			title: 'Open twitter',
+			subTitle: 'Open my twitter handle in a new tab',
+			onRun: () => {
+				window.open('https://twitter.com/rohitpotato');
+			},
+			shortcut: 'T T'
 		},
-		{
-			title: 'Title 8',
-			subTitle: 'this is the subtitle for title 8',
-			description: '8. something going here idk about?',
-			onRun: ({ storeProps }) => {
-				window.open('https://github.com');
-			}
-		},
-		{
-			title: 'Title 9',
-			subTitle: 'this is the subtitle for title 9',
-			description: '9. something going here idk about?',
-			onRun: ({ storeProps }) => {
-				window.open('https://github.com');
-			}
-		},
-		{
-			title: 'Title 10',
-			subTitle: 'this is the subtitle for title 10',
-			description: '10. something going here idk about?',
-			onRun: ({ storeProps }) => {
-				window.open('https://github.com');
-			}
-		}
+
 	]);
 
 	const openCommandPalette = () => {

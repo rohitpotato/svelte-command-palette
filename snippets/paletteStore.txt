@@ -1,0 +1,34 @@
+import { paletteStore } from 'svelte-command-palette';
+
+// Update your paletteStore from anywhere in the application
+
+paletteStore.update((storeValue) => {
+    return {
+        ...storeValue,
+        customValue: 'new value!'
+    }
+})
+
+// You can use this custom value in your onRun / canActionRun
+
+<CommandPalette
+    actions={defineActions([
+        {
+            // ..............................
+
+            // called when the action is triggered along with palette state and methods
+            onRun: ({ action, storeProps, storeMethods }) => {
+                console.log(storeProps.customValue)
+                // new value!
+            },
+            // decide whether to run the action based on your palette state
+            canActionRun: ({ action, storeProps, storeMethods }) => {
+                if(storeProps.customValue === 'old value') {
+                    return false
+                }
+                return true
+            },
+
+        }
+    ])}
+/>

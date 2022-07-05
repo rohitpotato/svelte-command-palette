@@ -1,0 +1,32 @@
+<pre class="shiki" style="background-color: #22272e"><code><span class="line"><span style="color: #ADBAC7">&lt;</span><span style="color: #8DDB8C">script</span><span style="color: #ADBAC7">&gt;</span></span>
+<span class="line"><span style="color: #ADBAC7">	</span><span style="color: #F47067">import</span><span style="color: #ADBAC7"> CommandPalette, { defineActions } </span><span style="color: #F47067">from</span><span style="color: #ADBAC7"> </span><span style="color: #96D0FF">&#39;svelte-command-palette&#39;</span><span style="color: #ADBAC7">;</span></span>
+<span class="line"><span style="color: #ADBAC7">	{</span><span style="color: #768390">/* Render command palette at the root of your application */</span><span style="color: #ADBAC7">}</span></span>
+<span class="line"><span style="color: #ADBAC7">	&lt;</span><span style="color: #8DDB8C">CommandPalette</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #ADBAC7">		</span><span style="color: #6CB6FF">actions</span><span style="color: #F47067">=</span><span style="color: #ADBAC7">{</span><span style="color: #DCBDFB">defineActions</span><span style="color: #ADBAC7">([</span></span>
+<span class="line"><span style="color: #ADBAC7">			{</span></span>
+<span class="line"><span style="color: #ADBAC7">				</span><span style="color: #768390">// Unique identifier for your action</span></span>
+<span class="line"><span style="color: #ADBAC7">				id: </span><span style="color: #96D0FF">&#39;1&#39;</span><span style="color: #ADBAC7">,</span></span>
+<span class="line"><span style="color: #ADBAC7">				</span><span style="color: #768390">// title for you action</span></span>
+<span class="line"><span style="color: #ADBAC7">				title: </span><span style="color: #96D0FF">&#39;Go to github&#39;</span><span style="color: #ADBAC7">,</span></span>
+<span class="line"><span style="color: #ADBAC7">				</span><span style="color: #768390">// subtitle for the action</span></span>
+<span class="line"><span style="color: #ADBAC7">				subTitle: </span><span style="color: #96D0FF">&#39;Press to redirect to github&#39;</span><span style="color: #ADBAC7">,</span></span>
+<span class="line"><span style="color: #ADBAC7">				</span><span style="color: #768390">// description of the action</span></span>
+<span class="line"><span style="color: #ADBAC7">				description: </span><span style="color: #96D0FF">&#39;1. something going here idk about?&#39;</span><span style="color: #ADBAC7">,</span></span>
+<span class="line"><span style="color: #ADBAC7">				</span><span style="color: #768390">// called when the action is triggered along with palette state and methods</span></span>
+<span class="line"><span style="color: #ADBAC7">				</span><span style="color: #DCBDFB">onRun</span><span style="color: #ADBAC7">: ({ </span><span style="color: #F69D50">action</span><span style="color: #ADBAC7">, </span><span style="color: #F69D50">storeProps</span><span style="color: #ADBAC7">, </span><span style="color: #F69D50">storeMethods</span><span style="color: #ADBAC7"> }) </span><span style="color: #F47067">=&gt;</span><span style="color: #ADBAC7"> {</span></span>
+<span class="line"><span style="color: #ADBAC7">					console.</span><span style="color: #DCBDFB">log</span><span style="color: #ADBAC7">(</span><span style="color: #96D0FF">&#39;do something&#39;</span><span style="color: #ADBAC7">);</span></span>
+<span class="line"><span style="color: #ADBAC7">				},</span></span>
+<span class="line"><span style="color: #ADBAC7">				</span><span style="color: #768390">// decide whether to run the action based on your palette state</span></span>
+<span class="line"><span style="color: #ADBAC7">				</span><span style="color: #DCBDFB">canActionRun</span><span style="color: #ADBAC7">: ({ </span><span style="color: #F69D50">action</span><span style="color: #ADBAC7">, </span><span style="color: #F69D50">storeProps</span><span style="color: #ADBAC7">, </span><span style="color: #F69D50">storeMethods</span><span style="color: #ADBAC7"> }) </span><span style="color: #F47067">=&gt;</span><span style="color: #ADBAC7"> {</span></span>
+<span class="line"><span style="color: #ADBAC7">					</span><span style="color: #F47067">return</span><span style="color: #ADBAC7"> </span><span style="color: #6CB6FF">true</span><span style="color: #ADBAC7">;</span></span>
+<span class="line"><span style="color: #ADBAC7">				},</span></span>
+<span class="line"><span style="color: #ADBAC7">				</span><span style="color: #768390">// keyboard shortcut to call the action</span></span>
+<span class="line"><span style="color: #ADBAC7">				shortcut: </span><span style="color: #96D0FF">&#39;G G&#39;</span><span style="color: #ADBAC7">,</span></span>
+<span class="line"><span style="color: #ADBAC7">				</span><span style="color: #768390">// allows searching for actions via keywords</span></span>
+<span class="line"><span style="color: #ADBAC7">				keywords: [</span><span style="color: #96D0FF">&#39;git&#39;</span><span style="color: #ADBAC7">, </span><span style="color: #96D0FF">&#39;github&#39;</span><span style="color: #ADBAC7">]</span></span>
+<span class="line"><span style="color: #ADBAC7">			}</span></span>
+<span class="line"><span style="color: #ADBAC7">		])}</span></span>
+<span class="line"><span style="color: #ADBAC7">	/&gt;</span></span>
+<span class="line"><span style="color: #ADBAC7">&lt;/</span><span style="color: #8DDB8C">script</span><span style="color: #ADBAC7">&gt;</span></span>
+<span class="line"></span></code></pre>

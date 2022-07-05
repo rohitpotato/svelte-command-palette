@@ -6,5 +6,5 @@
 <Navbar />
 <div class="flex">
 	<Sidebar />
-	<main><slot /></main>
+	<main class="px-12 py-4"><slot /></main>
 </div>
