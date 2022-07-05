@@ -13,11 +13,11 @@
 		});
 	};
 
-	$: bgColor = theme === 'primary' ? 'bg-gray-800' : 'bg-gray-100 shadow text-black';
+	$: bgColor = theme === 'primary' ? 'bg-gray-800 text-white' : 'bg-gray-100 shadow text-black';
 </script>
 
 <button
-	class={`p-2 ${bgColor} mx-2 inline-flex gap-1 font-semibold text-white rounded-md hover:scale-110 transition-transform duration-300`}
+	class={`p-2 ${bgColor} mx-2 inline-flex gap-1 font-semibold rounded-md hover:scale-110 transition-transform duration-300`}
 	on:click={onClick}
 >
 	{#each shortcuts as shortcut}

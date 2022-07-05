@@ -4,5 +4,7 @@
 </script>
 
 <Navbar />
-<Sidebar />
-<slot />
+<div class="flex">
+	<Sidebar />
+	<main><slot /></main>
+</div>
