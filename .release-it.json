@@ -1,0 +1,20 @@
+{
+    "npm": {
+        "publishPath": "./package"
+    },
+    "github": {
+        "release": true,
+        "releaseName": "v${version}"
+    },
+    "git": {
+        "commitMessage": "Craft v${version} release",
+        "requireCleanWorkingDir": true,
+        "tagAnnotation": "Release v${version}",
+        "tagName": "v${version}"
+      },
+      "hooks": {
+        "before:init": ["npm run pre:package-release"],
+        "after:bump": "npm run package",
+        "after:release": "echo Successfully released ${name} v${version} to ${repo.repository}."
+      }
+}   
