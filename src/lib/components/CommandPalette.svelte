@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { paletteStore } from '../store/PaletteStore';
 	import { onDestroy, onMount, afterUpdate } from 'svelte';
-	import tinyKeys, { parseKeybinding } from 'tinykeys';
+	// import tinyKeys, { parseKeybinding } from 'tinykeys';
 	import Portal from './Portal.svelte';
 	import ResultPanel from './ResultPanel.svelte';
 	import KeyboardButton from './KeyboardButton.svelte';
@@ -27,6 +27,7 @@
 
 	const storeMethods = createStoreMethods();
 	const actionMap = createActionMap(commands);
+	let formattedEscKey = ''
 	const { togglePalette, closePalette: closeCommandPalette } = storeMethods;
 
 	const updateStore = () => {
@@ -106,11 +107,14 @@
 		}
 	};
 
-	onMount(() => {
+	onMount(async () => {
+		const tinyKeys =   await import('tinykeys')
+		const {default: tiny, parseKeybinding} = tinyKeys
+		formattedEscKey = parseKeybinding('Esc').flat().join('');
 		const shortcuts = createShortcuts({
 			actions: commands
 		});
-		unsubscribeKbdListener = tinyKeys(window, {
+		unsubscribeKbdListener = tiny(window, {
 			...shortcuts,
 			'$mod+k': togglePalette,
 			Escape: closePalette,
@@ -158,7 +162,7 @@
 		wrapperElement?.removeEventListener?.('click', handleOutsideClick);
 	});
 
-	const formattedEscKey = parseKeybinding('Esc').flat().join('');
+	 
 </script>
 
 <Portal target="body">

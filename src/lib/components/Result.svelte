@@ -1,9 +1,8 @@
 <script lang="ts">
 	import { paletteStore } from '../store/PaletteStore';
-	import { afterUpdate } from 'svelte';
+	import { afterUpdate, onMount } from 'svelte';
 	import { runAction } from '../utils';
 	import KeyboardButton from './KeyboardButton.svelte';
-	import * as tinykeys from 'tinykeys';
 	import type { action } from '$lib/types';
 
 	export let action: action;
@@ -31,10 +30,16 @@
 		});
 	};
 
-	if (action.shortcut) {
-		const parsedShortcut = tinykeys.parseKeybinding(action.shortcut);
+	onMount(async () => {
+		const tinyKeys = await import('tinykeys');
+		const {parseKeybinding} = tinyKeys
+		if (action.shortcut) {
+		const parsedShortcut = parseKeybinding(action.shortcut);
 		formattedShortcut = parsedShortcut.flat().filter((s) => s.length > 0);
 	}
+	})
+
+
 
 	const onMouseEnter = () => {
 		isActive = true;
