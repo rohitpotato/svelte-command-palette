@@ -44,6 +44,7 @@
 		"fuse.js": "^6.6.2",
 		"i": "^0.3.7",
 		"npm": "^8.10.0",
+		"svelte-command-palette": "^1.0.0",
 		"svelte2tsx": "^0.5.10",
 		"tinykeys": "^1.4.0"
 	},
