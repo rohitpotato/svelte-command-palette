@@ -1,6 +1,6 @@
 {
 	"name": "svelte-command-palette",
-	"version": "0.0.1",
+	"version": "1.0.0",
 	"scripts": {
 		"build:docs": "node generateDocSnippets.js",
 		"dev": "npm run build:docs && svelte-kit dev",
@@ -49,9 +49,9 @@
 	},
 	"publishConfig": {
 		"access": "public"
-	  },
-	  "repository": {
+	},
+	"repository": {
 		"type": "git",
 		"url": "https://github.com/rohitpotato/svelte-command-palette.git"
-	  }
+	}
 }
