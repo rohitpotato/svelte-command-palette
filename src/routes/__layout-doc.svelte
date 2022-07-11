@@ -18,7 +18,7 @@
 			onRun: () => {
 				goto('/docs/palette-store');
 			},
-			shortcut: 'D D'
+			shortcut: 'D P'
 		},
 		{
 			title: 'Open Github',
