@@ -51,8 +51,25 @@
 	"publishConfig": {
 		"access": "public"
 	},
+	"keywords": [
+		"svelte",
+		"svelte-command-palette",
+		"command-palette",
+		"cmd-palette",
+		"palette",
+		"sveltejs",
+		"sveltejs command palette"
+	],
+	"contributors": [
+		{
+			"email": "rohit.mmm1996@gmail.com",
+			"name": "Rohit Kashyap",
+			"url": "https://rohitpotato.vercel.app/"
+		}
+	],
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/rohitpotato/svelte-command-palette.git"
-	}
+	},
+	"homepage": "https://svelte-command-palette.vercel.app/"
 }
