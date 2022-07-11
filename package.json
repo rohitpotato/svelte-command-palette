@@ -5,7 +5,7 @@
 		"build:docs": "node generateDocSnippets.js",
 		"dev": "npm run build:docs && svelte-kit dev",
 		"build": "npm run build:docs && svelte-kit build",
-		"package": "svelte-kit package",
+		"package": "svelte-kit package && cp ./README.md ./package/README.md",
 		"preview": "svelte-kit preview",
 		"prepare": "svelte-kit sync",
 		"test": "playwright test",
