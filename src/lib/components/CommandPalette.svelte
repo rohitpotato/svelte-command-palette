@@ -27,7 +27,7 @@
 
 	const storeMethods = createStoreMethods();
 	const actionMap = createActionMap(commands);
-	let formattedEscKey = ''
+	let formattedEscKey = '';
 	const { togglePalette, closePalette: closeCommandPalette } = storeMethods;
 
 	const updateStore = () => {
@@ -107,16 +107,21 @@
 		}
 	};
 
+	const toggleCommandPalette = (event: KeyboardEvent) => {
+		event.preventDefault();
+		togglePalette();
+	};
+
 	onMount(async () => {
-		const tinyKeys =   await import('tinykeys')
-		const {default: tiny, parseKeybinding} = tinyKeys
+		const tinyKeys = await import('tinykeys');
+		const { default: tiny, parseKeybinding } = tinyKeys;
 		formattedEscKey = parseKeybinding('Esc').flat().join('');
 		const shortcuts = createShortcuts({
 			actions: commands
 		});
 		unsubscribeKbdListener = tiny(window, {
 			...shortcuts,
-			'$mod+k': togglePalette,
+			'$mod+k': toggleCommandPalette,
 			Escape: closePalette,
 			ArrowUp: handleArrowUp,
 			ArrowDown: handleArrowDown,
@@ -161,8 +166,6 @@
 		focusLastElement();
 		wrapperElement?.removeEventListener?.('click', handleOutsideClick);
 	});
-
-	 
 </script>
 
 <Portal target="body">
