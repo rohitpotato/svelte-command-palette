@@ -212,7 +212,7 @@
 		position: fixed;
 		top: 0;
 		left: 0;
-		height: 100vh;
+		max-height: 100vh;
 		width: 100vw;
 		background: transparent;
 		display: flex;
