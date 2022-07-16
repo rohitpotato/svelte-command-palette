@@ -48,6 +48,6 @@ Install svelte-command-palette with npm
 
 // render your command palette at the root of your application, say _layout.svelte
 
-<CommandPalette {actions}>
+<CommandPalette {actions} />
 
 ```
