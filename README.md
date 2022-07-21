@@ -2,6 +2,8 @@
 
 ### Increase your productivity exponentially. 🚀🚀
 
+#### Get started with command-palette with 2.1Kb Minified and ~700B Gzipped + Minified
+
 ## Demo
 
 ![svelte-command-palette](https://rohit-misc.s3.ap-south-1.amazonaws.com/svelte-command-palette.gif)
