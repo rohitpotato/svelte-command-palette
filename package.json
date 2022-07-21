@@ -1,6 +1,6 @@
 {
 	"name": "svelte-command-palette",
-	"version": "1.1.4",
+	"version": "1.1.5",
 	"scripts": {
 		"build:docs": "node generateDocSnippets.js",
 		"dev": "npm run build:docs && svelte-kit dev",
