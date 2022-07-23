@@ -212,7 +212,7 @@
 		position: fixed;
 		top: 0;
 		left: 0;
-		max-height: 100vh;
+		height: 100vh;
 		width: 100vw;
 		background: transparent;
 		display: flex;
@@ -232,6 +232,7 @@
 		width: 60%;
 		max-width: 640px;
 		max-height: 400px;
+		height: fit-content;
 		margin: 0 auto;
 		display: flex;
 		flex-direction: column;
