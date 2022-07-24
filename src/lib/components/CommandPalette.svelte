@@ -232,6 +232,7 @@
 		width: 60%;
 		max-width: 640px;
 		max-height: 400px;
+		height: fit-content;
 		margin: 0 auto;
 		display: flex;
 		flex-direction: column;
