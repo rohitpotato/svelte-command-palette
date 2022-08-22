@@ -1,5 +1,5 @@
 <script>
-import { goto } from '$app/navigation';
+	import { goto } from '$app/navigation';
 
 	import Hero from '../components/Hero.svelte';
 	import CommandPalette, { defineActions, paletteStore } from '../lib';
@@ -18,7 +18,7 @@ import { goto } from '$app/navigation';
 			title: 'Go to docs',
 			subTitle: 'Learn how to use svelte-command-palette',
 			onRun: () => {
-				goto('/docs')
+				goto('/docs');
 			},
 			shortcut: 'D D'
 		},
@@ -80,8 +80,7 @@ import { goto } from '$app/navigation';
 				window.open('https://twitter.com/rohitpotato');
 			},
 			shortcut: 'T T'
-		},
-
+		}
 	]);
 
 	const openCommandPalette = () => {
@@ -100,7 +99,20 @@ import { goto } from '$app/navigation';
 	};
 </script>
 
-<CommandPalette commands={actions} />
+<CommandPalette
+	unstyled={false}
+	placeholder="SAD"
+	commands={actions}
+	keyboardButtonClass="bg-red-500"
+	inputStyle={{ background: 'red' }}
+	resultsContainerStyle={{ background: 'orangered' }}
+	resultContainerStyle={{ background: 'limegreen' }}
+	keyboardButtonStyle={{ backgroundColor: 'yellow', borderRadius: '50%' }}
+	titleStyle={{ color: 'greenyellow' }}
+	descriptionStyle={{ color: 'yellow' }}
+	subtitleStyle={{ color: 'blueviolet' }}
+	optionSelectedStyle={{ background: 'blue' }}
+/>
 <div class="px-8">
 	<Hero {incrementCounter} {counter} {openCommandPalette} />
 </div>

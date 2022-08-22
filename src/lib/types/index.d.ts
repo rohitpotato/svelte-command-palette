@@ -40,3 +40,29 @@ export interface actionMap {
 export interface shortCutMap {
 	[key: string]: (event: KeyboardEvent) => void;
 }
+
+export type className = string | null;
+export type cssStyle = string | null;
+export interface themeContext {
+	inputClass: className;
+	overlayClass: className;
+	paletteWrapperInnerClass: className;
+	resultsContainerClass: className;
+	resultContainerClass: className;
+	optionSelectedClass: className;
+	titleClass: className;
+	subtitleClass: className;
+	descriptionClass: className;
+	keyboardButtonClass: className;
+	unstyled: boolean;
+	inputStyle;
+	overlayStyle: cssStyle;
+	paletteWrapperInnerStyle: cssStyle;
+	resultsContainerStyle: cssStyle;
+	resultContainerStyle: cssStyle;
+	optionSelectedStyle: cssStyle;
+	titleStyle: cssStyle;
+	subtitleStyle: cssStyle;
+	descriptionStyle: cssStyle;
+	keyboardButtonStyle: cssStyle;
+}

@@ -1,20 +1,29 @@
 <script lang="ts">
 	import { paletteStore } from '../store/PaletteStore';
-	import { onDestroy } from 'svelte';
+	import { onDestroy, getContext } from 'svelte';
 	import Result from './Result.svelte';
 	import { getNonEmptyArray } from '../utils';
-	import type { commands, storeParams } from '$lib/types';
+	import { THEME_CONTEXT } from '../constants';
+	import type { commands, storeParams, themeContext } from '$lib/types';
 
 	let actions: commands = [];
 	const unsubscribe = paletteStore.subscribe((value: storeParams) => {
 		actions = getNonEmptyArray(value.results);
 	});
 
+	const themeContext: themeContext = getContext(THEME_CONTEXT);
+	const { resultsContainerClass, unstyled, resultsContainerStyle } = themeContext;
+
 	onDestroy(unsubscribe);
 </script>
 
 {#if actions.length > 0}
-	<ul role="listbox">
+	<ul
+		class={resultsContainerClass}
+		class:results={!unstyled}
+		style={resultsContainerStyle}
+		role="listbox"
+	>
 		{#each actions as action (action.actionId)}
 			<Result {action} />
 		{/each}
@@ -26,7 +35,7 @@
 {/if}
 
 <style>
-	ul {
+	.results {
 		width: 100%;
 		list-style-type: none;
 		background: white;

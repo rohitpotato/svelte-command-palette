@@ -1,17 +1,48 @@
 <script lang="ts">
-	import { paletteStore } from '../store/PaletteStore';
 	import { onDestroy, onMount, afterUpdate } from 'svelte';
-	// import tinyKeys, { parseKeybinding } from 'tinykeys';
+	import { setContext as setThemeContext } from 'svelte';
+	import { paletteStore } from '../store/PaletteStore';
 	import Portal from './Portal.svelte';
 	import ResultPanel from './ResultPanel.svelte';
 	import KeyboardButton from './KeyboardButton.svelte';
 	import createShortcuts from '../utils/createShortcuts';
-	import { createFuse, formatResults, getNonEmptyArray, runAction } from '../utils';
+	import { createFuse, formatResults, getNonEmptyArray, runAction, toCssString } from '../utils';
 	import createStoreMethods from '../utils/createStoreMethods';
 	import createActionMap from '../utils/createActionMap';
-	import type { ActionId, commands, storeParams } from '$lib/types';
+	import { THEME_CONTEXT } from '../constants';
+	import type { ActionId, commands, storeParams, className, cssStyle } from '$lib/types';
+	import type { Properties } from 'csstype';
 
 	export let commands: commands = [];
+	export let placeholder: string = 'Search for an action';
+
+	// style classes
+
+	export let inputClass: className = null;
+	export let overlayClass: className = null;
+	export let paletteWrapperInnerClass: className = null;
+	export let resultsContainerClass: className = null;
+	export let resultContainerClass: className = null;
+	export let optionSelectedClass: className = null;
+	export let titleClass: className = null;
+	export let subtitleClass: className = null;
+	export let descriptionClass: className = null;
+	export let keyboardButtonClass: className = null;
+	export let unstyled = false;
+
+	// style props (convert to css)
+
+	export let inputStyle: Properties = {};
+	export let overlayStyle: Properties = {};
+	export let paletteWrapperInnerStyle: Properties = {};
+	export let resultsContainerStyle: Properties = {};
+	export let resultContainerStyle: Properties = {};
+	export let optionSelectedStyle: Properties = {};
+	export let titleStyle: Properties = {};
+	export let subtitleStyle: Properties = {};
+	export let descriptionStyle: Properties = {};
+	export let keyboardButtonStyle: Properties = {};
+
 	let wrapperElement: HTMLDivElement;
 	let searchInputRef: HTMLInputElement;
 	let commandPaletteRef: HTMLElement;
@@ -24,6 +55,32 @@
 	let isWrapperClickHandlerSet = false;
 
 	let actions: commands = [];
+
+	// set themes to context to pass down to deeply nested components
+
+	setThemeContext(THEME_CONTEXT, {
+		inputClass,
+		overlayClass,
+		paletteWrapperInnerClass,
+		resultsContainerClass,
+		resultContainerClass,
+		optionSelectedClass,
+		titleClass,
+		subtitleClass,
+		descriptionClass,
+		keyboardButtonClass,
+		unstyled,
+		inputStyle: toCssString(inputStyle),
+		overlayStyle: toCssString(overlayStyle),
+		paletteWrapperInnerStyle: toCssString(paletteWrapperInnerStyle),
+		resultsContainerStyle: toCssString(resultsContainerStyle),
+		resultContainerStyle: toCssString(resultContainerStyle),
+		optionSelectedStyle: toCssString(optionSelectedStyle),
+		titleStyle: toCssString(titleStyle),
+		subtitleStyle: toCssString(subtitleStyle),
+		descriptionStyle: toCssString(descriptionStyle),
+		keyboardButtonStyle: toCssString(keyboardButtonStyle)
+	});
 
 	const storeMethods = createStoreMethods();
 	const actionMap = createActionMap(commands);
@@ -54,7 +111,8 @@
 		lastActiveElement?.focus();
 	};
 
-	const closePalette = () => {
+	const closePalette = (event?: KeyboardEvent) => {
+		event?.preventDefault?.();
 		closeCommandPalette();
 		focusLastElement();
 	};
@@ -170,7 +228,13 @@
 
 <Portal target="body">
 	{#if isPaletteVisible}
-		<div id="wrapper" bind:this={wrapperElement}>
+		<div
+			id="wrapper"
+			class={overlayClass}
+			style={toCssString(overlayStyle)}
+			class:wrapper={!unstyled}
+			bind:this={wrapperElement}
+		>
 			<div
 				class="paletteWrapper"
 				role="combobox"
@@ -178,12 +242,20 @@
 				aria-haspopup="listbox"
 				aria-controls={'uniqId'}
 			>
-				<div class="paletteWrapperInner" bind:this={commandPaletteRef}>
+				<div
+					class:paletteWrapperInner={!unstyled}
+					class={paletteWrapperInnerClass}
+					style={toCssString(paletteWrapperInnerStyle)}
+					bind:this={commandPaletteRef}
+				>
 					<form autocomplete="off" role="search" novalidate on:submit={(ev) => ev.preventDefault()}>
 						<label for={searchInputId}>Search for an action</label>
 						<input
 							type="search"
-							placeholder="Search for an action"
+							class={inputClass}
+							class:paletteInput={!unstyled}
+							style={toCssString(inputStyle)}
+							{placeholder}
 							aria-autocomplete="list"
 							spellcheck={false}
 							aria-activedescendant={`palette-${activeCommand}`}
@@ -195,7 +267,7 @@
 							on:input={handleSearch}
 						/>
 						<div class="shortcut">
-							<KeyboardButton on:KeyboardButtonClicked={closePalette}
+							<KeyboardButton on:KeyboardButtonClicked={() => closePalette()}
 								>{formattedEscKey}</KeyboardButton
 							>
 						</div>
@@ -208,7 +280,7 @@
 </Portal>
 
 <style>
-	#wrapper {
+	.wrapper {
 		position: fixed;
 		top: 0;
 		left: 0;
@@ -221,8 +293,6 @@
 	}
 
 	:global(.paletteWrapper *) {
-		padding: 0;
-		margin: 0;
 		box-sizing: border-box;
 	}
 
@@ -247,24 +317,24 @@
 		width: 100%;
 	}
 
-	input {
+	.paletteInput {
 		width: 100%;
 		padding: 1rem;
 		appearance: none;
 		border: none;
 	}
 
-	input::placeholder {
+	.paletteInput::placeholder {
 		font-size: 20px;
 	}
 
-	input[type='search']::-webkit-search-decoration,
-	input[type='search']::-webkit-search-cancel-button,
-	input[type='search']::-webkit-search-results-button,
-	input[type='search']::-webkit-search-results-decoration {
+	.paletteInput[type='search']::-webkit-search-decoration,
+	.paletteInput[type='search']::-webkit-search-cancel-button,
+	.paletteInput[type='search']::-webkit-search-results-button,
+	.paletteInput[type='search']::-webkit-search-results-decoration {
 		-webkit-appearance: none;
 	}
-	input:focus {
+	.paletteInput:focus {
 		outline: none;
 	}
 
@@ -286,7 +356,7 @@
 			height: 100vh;
 			max-height: 100vh;
 		}
-		#wrapper {
+		.wrapper {
 			padding: 0;
 		}
 	}
