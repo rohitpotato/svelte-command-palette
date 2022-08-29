@@ -5,14 +5,15 @@
 	import { getNonEmptyArray } from '../utils';
 	import { THEME_CONTEXT } from '../constants';
 	import type { commands, storeParams, themeContext } from '$lib/types';
+	import type { Writable } from 'svelte/store';
 
 	let actions: commands = [];
 	const unsubscribe = paletteStore.subscribe((value: storeParams) => {
 		actions = getNonEmptyArray(value.results);
 	});
 
-	const themeContext: themeContext = getContext(THEME_CONTEXT);
-	const { resultsContainerClass, unstyled, resultsContainerStyle } = themeContext;
+	const themeContext = getContext(THEME_CONTEXT) as Writable<themeContext>;
+	const { resultsContainerClass, unstyled, resultsContainerStyle } = $themeContext;
 
 	onDestroy(unsubscribe);
 </script>

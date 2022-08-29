@@ -5,13 +5,14 @@
 	import KeyboardButton from './KeyboardButton.svelte';
 	import { THEME_CONTEXT } from '../constants';
 	import type { action, themeContext } from '$lib/types';
+	import type { Writable } from 'svelte/store';
 
 	export let action: action;
 	let elRef: HTMLElement;
 	let isActive: boolean;
 	let formattedShortcut: Array<string[] | string> = [];
 
-	const themeContext: themeContext = getContext(THEME_CONTEXT);
+	const themeContext: Writable<themeContext> = getContext(THEME_CONTEXT);
 	const {
 		resultContainerClass,
 		unstyled,
@@ -24,7 +25,7 @@
 		subtitleStyle,
 		descriptionStyle,
 		optionSelectedStyle
-	} = themeContext;
+	} = $themeContext;
 
 	afterUpdate(() => {
 		if (action.actionId === $paletteStore.activeCommandId && elRef) {

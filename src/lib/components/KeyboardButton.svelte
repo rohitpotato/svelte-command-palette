@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { Writable } from 'svelte/store';
 	import { THEME_CONTEXT } from '$lib/constants';
 	import type { themeContext } from '$lib/types';
 	import { createEventDispatcher, getContext } from 'svelte';
@@ -10,8 +11,8 @@
 		});
 	};
 
-	const themeContext: themeContext = getContext(THEME_CONTEXT);
-	const { unstyled, keyboardButtonClass, keyboardButtonStyle } = themeContext;
+	const themeContext: Writable<themeContext> = getContext(THEME_CONTEXT);
+	const { unstyled, keyboardButtonClass, keyboardButtonStyle } = $themeContext;
 </script>
 
 <button

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onDestroy, onMount, afterUpdate } from 'svelte';
 	import { setContext as setThemeContext } from 'svelte';
+	import { writable } from 'svelte/store';
 	import { paletteStore } from '../store/PaletteStore';
 	import Portal from './Portal.svelte';
 	import ResultPanel from './ResultPanel.svelte';
@@ -58,29 +59,9 @@
 
 	// set themes to context to pass down to deeply nested components
 
-	setThemeContext(THEME_CONTEXT, {
-		inputClass,
-		overlayClass,
-		paletteWrapperInnerClass,
-		resultsContainerClass,
-		resultContainerClass,
-		optionSelectedClass,
-		titleClass,
-		subtitleClass,
-		descriptionClass,
-		keyboardButtonClass,
-		unstyled,
-		inputStyle: toCssString(inputStyle),
-		overlayStyle: toCssString(overlayStyle),
-		paletteWrapperInnerStyle: toCssString(paletteWrapperInnerStyle),
-		resultsContainerStyle: toCssString(resultsContainerStyle),
-		resultContainerStyle: toCssString(resultContainerStyle),
-		optionSelectedStyle: toCssString(optionSelectedStyle),
-		titleStyle: toCssString(titleStyle),
-		subtitleStyle: toCssString(subtitleStyle),
-		descriptionStyle: toCssString(descriptionStyle),
-		keyboardButtonStyle: toCssString(keyboardButtonStyle)
-	});
+	const themeStore = writable({});
+
+	setThemeContext(THEME_CONTEXT, themeStore);
 
 	const storeMethods = createStoreMethods();
 	const actionMap = createActionMap(commands);
@@ -216,6 +197,30 @@
 		if (!isPaletteVisible) {
 			isWrapperClickHandlerSet = false;
 		}
+
+		themeStore.set({
+			inputClass,
+			overlayClass,
+			paletteWrapperInnerClass,
+			resultsContainerClass,
+			resultContainerClass,
+			optionSelectedClass,
+			titleClass,
+			subtitleClass,
+			descriptionClass,
+			keyboardButtonClass,
+			unstyled,
+			inputStyle: toCssString(inputStyle),
+			overlayStyle: toCssString(overlayStyle),
+			paletteWrapperInnerStyle: toCssString(paletteWrapperInnerStyle),
+			resultsContainerStyle: toCssString(resultsContainerStyle),
+			resultContainerStyle: toCssString(resultContainerStyle),
+			optionSelectedStyle: toCssString(optionSelectedStyle),
+			titleStyle: toCssString(titleStyle),
+			subtitleStyle: toCssString(subtitleStyle),
+			descriptionStyle: toCssString(descriptionStyle),
+			keyboardButtonStyle: toCssString(keyboardButtonStyle)
+		});
 	});
 
 	onDestroy(() => {

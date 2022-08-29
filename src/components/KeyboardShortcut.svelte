@@ -13,7 +13,10 @@
 		});
 	};
 
-	$: bgColor = theme === 'primary' ? 'bg-gray-800 text-white' : 'bg-gray-100 shadow text-black';
+	$: bgColor =
+		theme === 'primary'
+			? 'bg-gray-800 dark:bg-dark-mode-gray text-white dark:text-light-gray'
+			: 'bg-gray-100 shadow text-black  dark:text-light-gray dark:bg-dark-mode-gray';
 </script>
 
 <button

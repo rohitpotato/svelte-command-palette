@@ -1,8 +1,20 @@
-<script>
+<script lang="ts">
 	import { goto } from '$app/navigation';
-
+	import { afterUpdate, onMount } from 'svelte';
 	import Hero from '../components/Hero.svelte';
 	import CommandPalette, { defineActions, paletteStore } from '../lib';
+	import themeStore from '../store/themeStore';
+
+	type Themes = string | null;
+
+	let currentTheme: Themes;
+
+	onMount(() => {
+		themeStore.set(localStorage.getItem('theme'));
+		themeStore.subscribe((value) => {
+			currentTheme = value;
+		});
+	});
 
 	let counter = 0;
 
@@ -97,23 +109,74 @@
 	const runConditionalAction = () => {
 		alert('Look ma! I can run.');
 	};
+
+	afterUpdate(() => {
+		console.log({ currentTheme });
+	});
+
+	$: paletteTheme =
+		currentTheme === 'light'
+			? {
+					placeholder: 'Search for actions',
+					inputStyles: {
+						background: 'white'
+					},
+					resultsContainerStyle: {
+						background: 'white'
+					},
+					resultContainerStyle: {
+						background: 'white'
+					},
+					titleStyle: {
+						color: 'black'
+					},
+					subtitleStyle: {
+						color: 'blueviolet'
+					},
+					descriptionStyle: {
+						color: 'black'
+					}
+			  }
+			: {
+					placeholder: 'Search for darker actions',
+					inputStyles: {
+						background: '#212121'
+					},
+					resultsContainerStyle: {
+						background: '#121212'
+					},
+					resultContainerStyle: {
+						background: '#121212',
+						border: '1px solid black'
+					},
+					titleStyle: {
+						color: '#ECEDF3'
+					},
+					descriptionStyle: {
+						color: '#313654'
+					},
+					subtitleStyle: {
+						color: '#e44c1c'
+					}
+			  };
 </script>
 
 <CommandPalette
 	unstyled={false}
-	placeholder="SAD"
+	placeholder={paletteTheme.placeholder}
 	commands={actions}
 	keyboardButtonClass="bg-red-500"
-	inputStyle={{ background: 'red' }}
-	resultsContainerStyle={{ background: 'orangered' }}
-	resultContainerStyle={{ background: 'limegreen' }}
-	keyboardButtonStyle={{ backgroundColor: 'yellow', borderRadius: '50%' }}
-	titleStyle={{ color: 'greenyellow' }}
-	descriptionStyle={{ color: 'yellow' }}
-	subtitleStyle={{ color: 'blueviolet' }}
-	optionSelectedStyle={{ background: 'blue' }}
+	inputStyle={paletteTheme.inputStyles}
+	resultsContainerStyle={paletteTheme.resultsContainerStyle}
+	resultContainerStyle={paletteTheme.resultContainerStyle}
+	titleStyle={paletteTheme.titleStyle}
+	descriptionStyle={paletteTheme.descriptionStyle}
+	subtitleStyle={paletteTheme.subtitleStyle}
+	optionSelectedStyle={currentTheme === 'light'
+		? { background: 'skyblue' }
+		: { background: 'blue' }}
 />
-<div class="px-8">
+<div class="px-8 dark:bg-dark-mode-black bg-white">
 	<Hero {incrementCounter} {counter} {openCommandPalette} />
 </div>
 
