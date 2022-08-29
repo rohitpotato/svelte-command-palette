@@ -8,6 +8,7 @@ export const generateSnippets = async () => {
 	const highlighter = await shiki.getHighlighter({ theme: 'github-dark-dimmed' });
 	// for each file, convert to html
 	const generatedMarkup = files.map(async (file) => {
+		console.log(`Generating docs: ${file}`);
 		const content = await fs.readFile(path.join(__dirname, `./snippets/${file}`), 'utf-8');
 		const html = highlighter.codeToHtml(content, { lang: 'svelte' });
 		return {

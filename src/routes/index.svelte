@@ -4,6 +4,7 @@
 	import Hero from '../components/Hero.svelte';
 	import CommandPalette, { defineActions, paletteStore } from '../lib';
 	import themeStore from '../store/themeStore';
+	import switchTheme from '../utils/switchTheme';
 
 	type Themes = string | null;
 
@@ -33,6 +34,13 @@
 				goto('/docs');
 			},
 			shortcut: 'D D'
+		},
+		{
+			title: 'Switch Theme',
+			subTitle: 'Switch theme to see palette reflecting new theme',
+			description: 'New feature, not customise command-palette however you want',
+			shortcut: 'S T',
+			onRun: switchTheme
 		},
 		{
 			title: 'Increment Counter',
