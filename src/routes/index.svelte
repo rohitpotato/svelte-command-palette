@@ -148,7 +148,8 @@
 			: {
 					placeholder: 'Search for darker actions',
 					inputStyles: {
-						background: '#212121'
+						background: '#212121',
+						color: '#ECEDF3'
 					},
 					resultsContainerStyle: {
 						background: '#121212'
