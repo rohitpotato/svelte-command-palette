@@ -7,4 +7,6 @@ const defaultAppState = {
 	results: []
 };
 
-export { defaultAppState };
+const THEME_CONTEXT = 'themeContext';
+
+export { defaultAppState, THEME_CONTEXT };

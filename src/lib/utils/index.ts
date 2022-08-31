@@ -49,12 +49,12 @@ const updatePaletteStoreAfterActionExec = (actionId: ActionId) => {
 };
 
 const runAction = ({ action }: { action: action }) => {
-	const { onRun, canActionRun = noop, actionId = '' } = action;
+	const { onRun, canActionRun = noop, actionId = '' } = action || {};
 	const storeProps = get(paletteStore);
 	const { storeMethods } = storeProps;
 	if (canActionRun({ action, storeProps, storeMethods }) && onRun) {
 		updatePaletteStoreAfterActionExec(actionId);
-		onRun({ action, storeProps, storeMethods });
+		onRun?.({ action, storeProps, storeMethods });
 		return true;
 	}
 	paletteStore.update((n) => {

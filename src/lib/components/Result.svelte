@@ -1,20 +1,37 @@
 <script lang="ts">
 	import { paletteStore } from '../store/PaletteStore';
-	import { afterUpdate, onMount } from 'svelte';
+	import { afterUpdate, onMount, getContext } from 'svelte';
 	import { runAction } from '../utils';
 	import KeyboardButton from './KeyboardButton.svelte';
-	import type { action } from '$lib/types';
+	import { THEME_CONTEXT } from '../constants';
+	import type { action, themeContext } from '$lib/types';
+	import type { Writable } from 'svelte/store';
 
 	export let action: action;
 	let elRef: HTMLElement;
 	let isActive: boolean;
 	let formattedShortcut: Array<string[] | string> = [];
 
+	const themeContext: Writable<themeContext> = getContext(THEME_CONTEXT);
+	const {
+		resultContainerClass,
+		unstyled,
+		optionSelectedClass,
+		titleClass,
+		subtitleClass,
+		descriptionClass,
+		resultContainerStyle,
+		titleStyle,
+		subtitleStyle,
+		descriptionStyle,
+		optionSelectedStyle
+	} = $themeContext;
+
 	afterUpdate(() => {
 		if (action.actionId === $paletteStore.activeCommandId && elRef) {
 			isActive = true;
 			requestAnimationFrame(() => {
-				elRef.scrollIntoView({
+				elRef?.scrollIntoView?.({
 					behavior: 'smooth',
 					block: 'nearest'
 				});
@@ -32,14 +49,12 @@
 
 	onMount(async () => {
 		const tinyKeys = await import('tinykeys');
-		const {parseKeybinding} = tinyKeys
+		const { parseKeybinding } = tinyKeys;
 		if (action.shortcut) {
-		const parsedShortcut = parseKeybinding(action.shortcut);
-		formattedShortcut = parsedShortcut.flat().filter((s) => s.length > 0);
-	}
-	})
-
-
+			const parsedShortcut = parseKeybinding(action.shortcut);
+			formattedShortcut = parsedShortcut.flat().filter((s) => s.length > 0);
+		}
+	});
 
 	const onMouseEnter = () => {
 		isActive = true;
@@ -58,18 +73,24 @@
 </script>
 
 <li
+	class:resultContainer={!unstyled}
+	class={`${resultContainerClass} ${
+		isActive ? (!unstyled ? 'selected' : optionSelectedClass) : ''
+	}`}
+	style={`${resultContainerStyle} ${isActive ? optionSelectedStyle : ''}`}
 	aria-selected={isActive}
 	role="option"
 	bind:this={elRef}
 	on:click={handleRunAction}
-	class:selected={isActive}
 	on:mouseenter={onMouseEnter}
 	on:mouseleave={onMouseLeave}
 >
 	<div>
-		<h4 class="title">{action.title}</h4>
-		<p class="subtitle">{action.subTitle}</p>
-		<p class="description">{action.description || ''}</p>
+		<h4 style={titleStyle} class:title={!unstyled} class={titleClass}>{action.title}</h4>
+		<p style={subtitleStyle} class:subtitle={!unstyled} class={subtitleClass}>{action.subTitle}</p>
+		<p style={descriptionStyle} class:description={!unstyled} class={descriptionClass}>
+			{action.description || ''}
+		</p>
 	</div>
 	<div class="shortcuts">
 		{#each formattedShortcut as shortcut}
@@ -83,7 +104,7 @@
 </li>
 
 <style>
-	li {
+	.resultContainer {
 		padding: 1rem;
 		border-bottom: 1px solid #f7fafc;
 		display: flex;

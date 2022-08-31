@@ -1,0 +1,27 @@
+<CommandPalette
+	unstyled={false}
+	placeholder={paletteTheme.placeholder}
+	commands={actions}
+	keyboardButtonClass="bg-red-500"
+	inputClass="bg-blue-200"
+	overlayClass="bg-gray-200"
+	paletteWrapperInnerClass="w-full"
+	resultsContainerClass="h-max"
+	resultContainerClass="bg-black"
+	optionSelectedClass="text-blue-200"
+	subtitleClass="text-red-200"
+	titleClass="text-red-500"
+	descriptionClass=""
+	overlayStyle={{ width: "200px", height: '500px' }}
+	paletteWrapperInnerStyle={{ width: "200px", height: '500px' }}
+	inputStyle={paletteTheme.inputStyles}
+	resultsContainerStyle={paletteTheme.resultsContainerStyle}
+	resultContainerStyle={paletteTheme.resultContainerStyle}
+	titleStyle={paletteTheme.titleStyle}
+	descriptionStyle={paletteTheme.descriptionStyle}
+	subtitleStyle={paletteTheme.subtitleStyle}
+	optionSelectedStyle={currentTheme === 'light'
+		? { background: 'skyblue' }
+		: { background: 'blue' }}
+	keyboardButtonStyle={{}}
+/>

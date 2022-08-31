@@ -4,7 +4,7 @@
 </script>
 
 <Navbar />
-<div class="flex">
+<div class="flex dark:text-white dark:bg-dark-mode-gray">
 	<Sidebar />
 	<main class="px-12 py-4"><slot /></main>
 </div>

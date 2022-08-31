@@ -1,6 +1,13 @@
 <script>
-	import CommandPalette, { defineActions } from 'svelte-command-palette';
+	import CommandPalette, { defineActions, createStoreMethods } from 'svelte-command-palette';
 	{/* Render command palette at the root of your application */}
+
+	// define actions using the defineActions API
+
+    const paletteMethods = createStoreMethods();
+
+	<button on:click={() => paletteMethods.openPalette()}>Open Command Palette</button>
+
 	<CommandPalette
 
 		actions={defineActions([
