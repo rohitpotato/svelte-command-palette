@@ -2,13 +2,14 @@
 	import { goto } from '$app/navigation';
 	import { afterUpdate, onMount } from 'svelte';
 	import Hero from '../components/Hero.svelte';
-	import CommandPalette, { defineActions, paletteStore } from '../lib';
+	import CommandPalette, { defineActions, paletteStore, createStoreMethods } from '../lib';
 	import themeStore from '../store/themeStore';
 	import switchTheme from '../utils/switchTheme';
 
 	type Themes = string | null;
 
 	let currentTheme: Themes;
+	const paletteMethods = createStoreMethods();
 
 	onMount(() => {
 		themeStore.set(localStorage.getItem('theme'));
@@ -18,13 +19,6 @@
 	});
 
 	let counter = 0;
-
-	paletteStore.update((value) => {
-		return {
-			...value,
-			profileType: 'user'
-		};
-	});
 
 	let actions = defineActions([
 		{
@@ -104,10 +98,7 @@
 	]);
 
 	const openCommandPalette = () => {
-		paletteStore.update((val) => {
-			val.isVisible = true;
-			return val;
-		});
+		paletteMethods.openPalette();
 	};
 
 	const incrementCounter = () => {
@@ -117,10 +108,6 @@
 	const runConditionalAction = () => {
 		alert('Look ma! I can run.');
 	};
-
-	afterUpdate(() => {
-		console.log({ currentTheme });
-	});
 
 	$: paletteTheme =
 		currentTheme === 'light'

@@ -31,9 +31,11 @@ Install svelte-command-palette with npm
 
 ```javascript
 <script>
-    import CommandPalette, { defineActions } from 'svelte-command-palette'
+    import CommandPalette, { defineActions, createStoreMethods } from 'svelte-command-palette'
 
     // define actions using the defineActions API
+
+    const paletteMethods = createStoreMethods();
 
     const actions = defineActions([
         {
@@ -50,7 +52,10 @@ Install svelte-command-palette with npm
 
 // render your command palette at the root of your application, say _layout.svelte
 
+<button on:click={() => paletteMethods.openPalette()}>Open Command Palette</button>
+
 <CommandPalette {actions}>
+
 
 ```
 
@@ -96,4 +101,29 @@ The `<CommandPalette />` component accepts the following optional properties for
 	onRun?: (args: onRunParams) => void;
 	keywords?: Array<string>;
 	shortcut?: string;
+```
+
+## Store Methods
+
+Get palette methods from `createStoreMethods`.
+
+```
+import { createStoreMethods } from 'svelte-command-palette`
+
+const methods = createStoreMethods();
+
+method.openPalette();
+```
+
+### API
+
+```
+    togglePalette: () => void;
+    getAllCalledActions: () => ActionId[];
+    storeCalledAction: (id: ActionId) => void;
+    revertLastAction: (id: ActionId) => void;
+    resetActionLog: () => void;
+    openPalette: () => void;
+    closePalette: () => void;
+    resetPaletteStore: () => void;
 ```

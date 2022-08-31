@@ -1,6 +1,13 @@
 <pre class="shiki" style="background-color: #22272e"><code><span class="line"><span style="color: #ADBAC7">&lt;</span><span style="color: #8DDB8C">script</span><span style="color: #ADBAC7">&gt;</span></span>
-<span class="line"><span style="color: #ADBAC7">	</span><span style="color: #F47067">import</span><span style="color: #ADBAC7"> CommandPalette, { defineActions } </span><span style="color: #F47067">from</span><span style="color: #ADBAC7"> </span><span style="color: #96D0FF">&#39;svelte-command-palette&#39;</span><span style="color: #ADBAC7">;</span></span>
+<span class="line"><span style="color: #ADBAC7">	</span><span style="color: #F47067">import</span><span style="color: #ADBAC7"> CommandPalette, { defineActions, createStoreMethods } </span><span style="color: #F47067">from</span><span style="color: #ADBAC7"> </span><span style="color: #96D0FF">&#39;svelte-command-palette&#39;</span><span style="color: #ADBAC7">;</span></span>
 <span class="line"><span style="color: #ADBAC7">	{</span><span style="color: #768390">/* Render command palette at the root of your application */</span><span style="color: #ADBAC7">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #ADBAC7">	</span><span style="color: #768390">// define actions using the defineActions API</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #ADBAC7">    </span><span style="color: #F47067">const</span><span style="color: #ADBAC7"> </span><span style="color: #6CB6FF">paletteMethods</span><span style="color: #ADBAC7"> </span><span style="color: #F47067">=</span><span style="color: #ADBAC7"> </span><span style="color: #DCBDFB">createStoreMethods</span><span style="color: #ADBAC7">();</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #ADBAC7">	&lt;</span><span style="color: #8DDB8C">button</span><span style="color: #ADBAC7"> </span><span style="color: #6CB6FF">on</span><span style="color: #ADBAC7">:</span><span style="color: #6CB6FF">click</span><span style="color: #F47067">=</span><span style="color: #ADBAC7">{() </span><span style="color: #F47067">=&gt;</span><span style="color: #ADBAC7"> paletteMethods.</span><span style="color: #DCBDFB">openPalette</span><span style="color: #ADBAC7">()}&gt;Open Command Palette&lt;/</span><span style="color: #8DDB8C">button</span><span style="color: #ADBAC7">&gt;</span></span>
+<span class="line"></span>
 <span class="line"><span style="color: #ADBAC7">	&lt;</span><span style="color: #8DDB8C">CommandPalette</span></span>
 <span class="line"></span>
 <span class="line"><span style="color: #ADBAC7">		</span><span style="color: #6CB6FF">actions</span><span style="color: #F47067">=</span><span style="color: #ADBAC7">{</span><span style="color: #DCBDFB">defineActions</span><span style="color: #ADBAC7">([</span></span>
