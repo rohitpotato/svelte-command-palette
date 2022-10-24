@@ -1,7 +1,7 @@
 import type createActionMap from '$lib/utils/createActionMap';
 import type createStoreMethods from '$lib/utils/createStoreMethods';
 
-export type ActionId = number | string;
+export type ActionId = number | string | null;
 export type onRunParams = {
 	action: action;
 	storeProps: storeParams;
@@ -22,7 +22,7 @@ export type commands = Array<action>;
 
 export interface storeParams {
 	isVisible: boolean;
-	textInput: '';
+	textInput: string;
 	commands: commands;
 	storeMethods: ReturnType<typeof createStoreMethods>;
 	actionMap: ReturnType<typeof createActionMap>;

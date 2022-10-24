@@ -74,7 +74,7 @@
 			commands,
 			storeMethods,
 			actionMap,
-			activeCommandId: commands?.[0]?.actionId || '',
+			activeCommandId: null,
 			results: commands
 		}));
 	};
@@ -84,7 +84,7 @@
 	const unsubscribePaletteStore = paletteStore.subscribe((value: storeParams) => {
 		isPaletteVisible = value.isVisible;
 		actions = value.commands;
-		activeCommand = value.activeCommandId ?? actions?.[0]?.actionId;
+		activeCommand = value.activeCommandId ?? null;
 		searchResults = getNonEmptyArray(value.results, value.commands, []);
 	});
 
@@ -125,7 +125,7 @@
 		if (searchResults.length) {
 			// get currently seleted item
 			let activeCommandIndex = searchResults.findIndex((a) => a.actionId === activeCommand) ?? 0;
-			activeCommandIndex = activeCommandIndex === -1 ? 0 : activeCommandIndex;
+			activeCommandIndex = activeCommandIndex === -1 ? -1 : activeCommandIndex;
 			const totalCommands = searchResults.length;
 			const nextCommand = (activeCommandIndex + 1) % totalCommands;
 			const indexToSet = searchResults[nextCommand] ? nextCommand : activeCommandIndex;
@@ -136,7 +136,7 @@
 	const handleEnterKey = (event: KeyboardEvent) => {
 		event.preventDefault();
 		// get active command and execute
-		const action = actionMap[activeCommand];
+		const action = actionMap[activeCommand as string];
 		runAction({ action });
 	};
 

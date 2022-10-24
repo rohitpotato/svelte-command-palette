@@ -7,7 +7,7 @@ const createStoreMethods = () => {
 	const storeProps: storeParams = get(paletteStore);
 
 	const resetPaletteStore = () => {
-		paletteStore.update((n) => ({ ...n, defaultAppState }));
+		paletteStore.update((n) => ({ ...n, ...defaultAppState }));
 	};
 
 	const openPalette = () => {
@@ -15,7 +15,6 @@ const createStoreMethods = () => {
 	};
 
 	const closePalette = () => {
-		paletteStore.update((n) => ({ ...n, isVisible: false }));
 		resetPaletteStore();
 	};
 

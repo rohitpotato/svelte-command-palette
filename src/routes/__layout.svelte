@@ -6,7 +6,7 @@
 <svelte:head>
 	<script>
 		const getThemeFromLocalStorage = () => {
-			const theme = localStorage.getItem('theme') || 'dark';
+			const theme = localStorage.getItem('theme') || 'light';
 			return theme;
 		};
 
