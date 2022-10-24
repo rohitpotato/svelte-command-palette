@@ -43,6 +43,7 @@ const updatePaletteStoreAfterActionExec = (actionId: ActionId) => {
 			textInput: '',
 			activeCommandId: null,
 			selectedCommandId: null,
+			results: [],
 			calledActions: [...n.calledActions, actionId]
 		};
 	});
