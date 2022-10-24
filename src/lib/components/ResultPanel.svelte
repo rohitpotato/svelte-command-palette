@@ -9,7 +9,8 @@
 
 	let actions: commands = [];
 	const unsubscribe = paletteStore.subscribe((value: storeParams) => {
-		actions = getNonEmptyArray(value.results);
+		actions =
+			value.results.length > 0 ? getNonEmptyArray(value.results) : getNonEmptyArray(value.commands);
 	});
 
 	const themeContext = getContext(THEME_CONTEXT) as Writable<themeContext>;

@@ -12,7 +12,7 @@
 	const paletteMethods = createStoreMethods();
 
 	onMount(() => {
-		themeStore.set(localStorage.getItem('theme'));
+		themeStore.set(localStorage.getItem('theme') || 'light');
 		themeStore.subscribe((value) => {
 			currentTheme = value;
 		});

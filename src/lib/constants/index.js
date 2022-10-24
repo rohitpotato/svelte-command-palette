@@ -3,7 +3,6 @@ const defaultAppState = {
 	textInput: '',
 	activeCommandId: null,
 	selectedCommandId: null,
-	calledActions: [],
 	results: []
 };
 
