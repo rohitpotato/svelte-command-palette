@@ -53,7 +53,7 @@ Install svelte-command-palette with npm
 
 <button on:click={() => paletteMethods.openPalette()}>Open Command Palette</button>
 
-<CommandPalette {actions}>
+<CommandPalette commands={actions}>
 
 
 ```
