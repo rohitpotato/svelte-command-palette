@@ -39,11 +39,10 @@ Install svelte-command-palette with npm
 
     const actions = defineActions([
         {
-            id: 1,
             title: "Open Svelte Command Palette on github",
-            subTitle: 'This opens github in a new tab!",
+            subTitle: "This opens github in a new tab!",
             onRun: ({ action, storeProps, storeMethods }) => {
-                window.open("https://github.com/rohitpotato/svelte-command-palette"),
+                window.open("https://github.com/rohitpotato/svelte-command-palette")
             },
             shortcut: "Space k"
         }
