@@ -29,7 +29,7 @@ Install svelte-command-palette with npm
 
 ## Usage/Examples
 
-```javascript
+```svelte
 <script>
     import CommandPalette, { defineActions, createStoreMethods } from 'svelte-command-palette'
 
