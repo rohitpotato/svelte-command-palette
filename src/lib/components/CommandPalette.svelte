@@ -92,8 +92,7 @@
 		lastActiveElement?.focus();
 	};
 
-	const closePalette = (event?: KeyboardEvent) => {
-		event?.preventDefault?.();
+	const closePalette = () => {
 		closeCommandPalette();
 		focusLastElement();
 	};
@@ -108,8 +107,7 @@
 		paletteStore.update((n: storeParams) => ({ ...n, activeCommandId: id }));
 	};
 
-	const handleArrowUp = (event: KeyboardEvent) => {
-		event.preventDefault();
+	const handleArrowUp = () => {
 		// get currently seleted item
 		let activeCommandIndex = searchResults.findIndex((a) => a.actionId === activeCommand) ?? 0;
 
@@ -120,8 +118,7 @@
 		setActiveCommand(searchResults[indexToSet].actionId || '');
 	};
 
-	const handleArrowDown = (event: KeyboardEvent) => {
-		event.preventDefault();
+	const handleArrowDown = () => {
 		if (searchResults.length) {
 			// get currently seleted item
 			let activeCommandIndex = searchResults.findIndex((a) => a.actionId === activeCommand) ?? 0;
@@ -133,8 +130,7 @@
 		}
 	};
 
-	const handleEnterKey = (event: KeyboardEvent) => {
-		event.preventDefault();
+	const handleEnterKey = () => {
 		// get active command and execute
 		const action = actionMap[activeCommand as string];
 		runAction({ action });
@@ -146,8 +142,7 @@
 		}
 	};
 
-	const toggleCommandPalette = (event: KeyboardEvent) => {
-		event.preventDefault();
+	const toggleCommandPalette = () => {
 		togglePalette();
 	};
 
@@ -178,8 +173,7 @@
 		}));
 	};
 
-	const handleSearch = (event: Event) => {
-		event.preventDefault();
+	const handleSearch = () => {
 		let results = [...actions];
 		if ($paletteStore.textInput) {
 			const value = $paletteStore.textInput;
