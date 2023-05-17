@@ -179,7 +179,7 @@
 	};
 
 	const handleSearch = (event: Event) => {
-		event.stopPropagation();
+		event.preventDefault();
 		let results = [...actions];
 		if ($paletteStore.textInput) {
 			const value = $paletteStore.textInput;
