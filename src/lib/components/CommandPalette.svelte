@@ -147,7 +147,7 @@
 	};
 
 	const toggleCommandPalette = (event: KeyboardEvent) => {
-		event.stopPropagation();
+		event.preventDefault();
 		togglePalette();
 	};
 
