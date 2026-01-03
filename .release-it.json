@@ -1,6 +1,6 @@
 {
     "npm": {
-        "publishPath": "./dist"
+        "publish": true
     },
     "github": {
         "release": true,
