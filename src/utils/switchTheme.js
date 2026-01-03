@@ -1,15 +1,15 @@
 import themeStore from '../store/themeStore';
-const LIGHT = 'light';
-const DARK = 'dark';
 
-const handleThemeSwitch = () => {
-	const theme = localStorage.getItem('theme') || 'light';
-	const root = window.document.documentElement;
-	const isDark = theme === DARK;
-	root.classList.remove(theme);
-	root.classList.add(isDark ? LIGHT : DARK);
-	localStorage.setItem('theme', isDark ? LIGHT : DARK);
-	themeStore.set(isDark ? LIGHT : DARK);
+const switchTheme = () => {
+	const root = document.documentElement;
+	const currentTheme = root.classList.contains('dark') ? 'dark' : 'light';
+	const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+	root.classList.remove('dark', 'light');
+	root.classList.add(newTheme);
+
+	localStorage.setItem('theme', newTheme);
+	themeStore.set(newTheme);
 };
 
-export default handleThemeSwitch;
+export default switchTheme;

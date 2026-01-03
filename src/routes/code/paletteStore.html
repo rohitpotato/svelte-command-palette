@@ -1,34 +1,34 @@
-<pre class="shiki" style="background-color: #22272e"><code><span class="line"><span style="color: #ADBAC7">import { paletteStore } from &#39;svelte-command-palette&#39;;</span></span>
+<pre class="shiki github-dark-dimmed" style="background-color:#22272e;color:#adbac7" tabindex="0"><code><span class="line"><span style="color:#ADBAC7">import </span><span style="color:#F47067">{</span><span style="color:#ADBAC7"> paletteStore </span><span style="color:#F47067">}</span><span style="color:#ADBAC7"> from 'svelte-command-palette';</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #ADBAC7">// Update your paletteStore from anywhere in the application</span></span>
+<span class="line"><span style="color:#ADBAC7">// Update your paletteStore from anywhere in the application</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #ADBAC7">paletteStore.update((storeValue) =&gt; {</span></span>
-<span class="line"><span style="color: #ADBAC7">    </span><span style="color: #F47067">return</span><span style="color: #ADBAC7"> {</span></span>
-<span class="line"><span style="color: #ADBAC7">        </span><span style="color: #F47067">...</span><span style="color: #ADBAC7">storeValue,</span></span>
-<span class="line"><span style="color: #ADBAC7">        customValue: </span><span style="color: #96D0FF">&#39;new value!&#39;</span></span>
-<span class="line"><span style="color: #ADBAC7">    }</span></span>
-<span class="line"><span style="color: #ADBAC7">})</span></span>
+<span class="line"><span style="color:#ADBAC7">paletteStore.update((storeValue) => </span><span style="color:#F47067">{</span></span>
+<span class="line"><span style="color:#F47067">    return</span><span style="color:#ADBAC7"> {</span></span>
+<span class="line"><span style="color:#F47067">        ...</span><span style="color:#ADBAC7">storeValue,</span></span>
+<span class="line"><span style="color:#ADBAC7">        customValue: </span><span style="color:#96D0FF">'new value!'</span></span>
+<span class="line"><span style="color:#ADBAC7">    }</span></span>
+<span class="line"><span style="color:#F47067">}</span><span style="color:#ADBAC7">)</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #ADBAC7">// You can use this custom value in your onRun / canActionRun</span></span>
+<span class="line"><span style="color:#ADBAC7">// You can use this custom value in your onRun / canActionRun</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #ADBAC7">&lt;</span><span style="color: #8DDB8C">CommandPalette</span></span>
-<span class="line"><span style="color: #ADBAC7">    </span><span style="color: #6CB6FF">actions</span><span style="color: #ADBAC7">={</span><span style="color: #DCBDFB">defineActions</span><span style="color: #ADBAC7">([</span></span>
-<span class="line"><span style="color: #ADBAC7">        {</span></span>
-<span class="line"><span style="color: #ADBAC7">            </span><span style="color: #768390">// ..............................</span></span>
+<span class="line"><span style="color:#ADBAC7">&#x3C;</span><span style="color:#8DDB8C">CommandPalette</span></span>
+<span class="line"><span style="color:#6CB6FF">    actions</span><span style="color:#ADBAC7">=</span><span style="color:#F47067">{</span><span style="color:#DCBDFB">defineActions</span><span style="color:#ADBAC7">([</span></span>
+<span class="line"><span style="color:#ADBAC7">        {</span></span>
+<span class="line"><span style="color:#768390">            // ..............................</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #ADBAC7">            </span><span style="color: #768390">// called when the action is triggered along with palette state and methods</span></span>
-<span class="line"><span style="color: #ADBAC7">            </span><span style="color: #DCBDFB">onRun</span><span style="color: #ADBAC7">: ({ </span><span style="color: #F69D50">action</span><span style="color: #ADBAC7">, </span><span style="color: #F69D50">storeProps</span><span style="color: #ADBAC7">, </span><span style="color: #F69D50">storeMethods</span><span style="color: #ADBAC7"> }) </span><span style="color: #F47067">=&gt;</span><span style="color: #ADBAC7"> {</span></span>
-<span class="line"><span style="color: #ADBAC7">                console.</span><span style="color: #DCBDFB">log</span><span style="color: #ADBAC7">(storeProps.customValue)</span></span>
-<span class="line"><span style="color: #ADBAC7">                </span><span style="color: #768390">// new value!</span></span>
-<span class="line"><span style="color: #ADBAC7">            },</span></span>
-<span class="line"><span style="color: #ADBAC7">            </span><span style="color: #768390">// decide whether to run the action based on your palette state</span></span>
-<span class="line"><span style="color: #ADBAC7">            </span><span style="color: #DCBDFB">canActionRun</span><span style="color: #ADBAC7">: ({ </span><span style="color: #F69D50">action</span><span style="color: #ADBAC7">, </span><span style="color: #F69D50">storeProps</span><span style="color: #ADBAC7">, </span><span style="color: #F69D50">storeMethods</span><span style="color: #ADBAC7"> }) </span><span style="color: #F47067">=&gt;</span><span style="color: #ADBAC7"> {</span></span>
-<span class="line"><span style="color: #ADBAC7">                </span><span style="color: #F47067">if</span><span style="color: #ADBAC7">(storeProps.customValue </span><span style="color: #F47067">===</span><span style="color: #ADBAC7"> </span><span style="color: #96D0FF">&#39;old value&#39;</span><span style="color: #ADBAC7">) {</span></span>
-<span class="line"><span style="color: #ADBAC7">                    </span><span style="color: #F47067">return</span><span style="color: #ADBAC7"> </span><span style="color: #6CB6FF">false</span></span>
-<span class="line"><span style="color: #ADBAC7">                }</span></span>
-<span class="line"><span style="color: #ADBAC7">                </span><span style="color: #F47067">return</span><span style="color: #ADBAC7"> </span><span style="color: #6CB6FF">true</span></span>
-<span class="line"><span style="color: #ADBAC7">            },</span></span>
+<span class="line"><span style="color:#768390">            // called when the action is triggered along with palette state and methods</span></span>
+<span class="line"><span style="color:#DCBDFB">            onRun</span><span style="color:#ADBAC7">: ({ </span><span style="color:#F69D50">action</span><span style="color:#ADBAC7">, </span><span style="color:#F69D50">storeProps</span><span style="color:#ADBAC7">, </span><span style="color:#F69D50">storeMethods</span><span style="color:#ADBAC7"> }) </span><span style="color:#F47067">=></span><span style="color:#ADBAC7"> {</span></span>
+<span class="line"><span style="color:#ADBAC7">                console.</span><span style="color:#DCBDFB">log</span><span style="color:#ADBAC7">(storeProps.customValue)</span></span>
+<span class="line"><span style="color:#768390">                // new value!</span></span>
+<span class="line"><span style="color:#ADBAC7">            },</span></span>
+<span class="line"><span style="color:#768390">            // decide whether to run the action based on your palette state</span></span>
+<span class="line"><span style="color:#DCBDFB">            canActionRun</span><span style="color:#ADBAC7">: ({ </span><span style="color:#F69D50">action</span><span style="color:#ADBAC7">, </span><span style="color:#F69D50">storeProps</span><span style="color:#ADBAC7">, </span><span style="color:#F69D50">storeMethods</span><span style="color:#ADBAC7"> }) </span><span style="color:#F47067">=></span><span style="color:#ADBAC7"> {</span></span>
+<span class="line"><span style="color:#F47067">                if</span><span style="color:#ADBAC7">(storeProps.customValue </span><span style="color:#F47067">===</span><span style="color:#96D0FF"> 'old value'</span><span style="color:#ADBAC7">) {</span></span>
+<span class="line"><span style="color:#F47067">                    return</span><span style="color:#6CB6FF"> false</span></span>
+<span class="line"><span style="color:#ADBAC7">                }</span></span>
+<span class="line"><span style="color:#F47067">                return</span><span style="color:#6CB6FF"> true</span></span>
+<span class="line"><span style="color:#ADBAC7">            },</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #ADBAC7">        }</span></span>
-<span class="line"><span style="color: #ADBAC7">    ])}</span></span>
-<span class="line"><span style="color: #ADBAC7">/&gt;</span></span></code></pre>
+<span class="line"><span style="color:#ADBAC7">        }</span></span>
+<span class="line"><span style="color:#ADBAC7">    ])</span><span style="color:#F47067">}</span></span>
+<span class="line"><span style="color:#ADBAC7">/></span></span></code></pre>

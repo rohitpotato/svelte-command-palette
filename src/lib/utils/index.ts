@@ -16,7 +16,9 @@ const defineActions = (actions: Array<action> = []): commands => {
 			onRun = noop,
 			description,
 			keywords = [],
-			shortcut = ''
+			shortcut = '',
+			icon,
+			group
 		}) => {
 			return {
 				actionId,
@@ -26,7 +28,9 @@ const defineActions = (actions: Array<action> = []): commands => {
 				onRun,
 				description,
 				keywords,
-				shortcut
+				shortcut,
+				icon,
+				group
 			};
 		}
 	);
@@ -67,6 +71,7 @@ const runAction = ({ action }: { action: action }) => {
 	return false;
 };
 
+// Fixed: 'subTitle' was incorrectly 'subtitle' causing search to not work on subtitles
 const createFuse = (actions: commands) =>
 	new Fuse(actions, {
 		keys: [
@@ -75,7 +80,7 @@ const createFuse = (actions: commands) =>
 				weight: 1
 			},
 			{
-				name: 'subtitle',
+				name: 'subTitle',
 				weight: 0.7
 			},
 			{
@@ -86,7 +91,9 @@ const createFuse = (actions: commands) =>
 				name: 'keywords',
 				weight: 0.5
 			}
-		]
+		],
+		threshold: 0.4,
+		ignoreLocation: true
 	});
 
 const getNonEmptyArray = (...args: Array<commands>) => {
@@ -97,10 +104,45 @@ const camelCaseToDash = (str: string) => str.replace(/([a-zA-Z])(?=[A-Z])/g, '$1
 
 const toCssString = (props: Properties = {}) =>
 	props
-		? // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-		  // @ts-ignore
-		  Object.keys(props).reduce((str, key) => `${str}; ${camelCaseToDash(key)}: ${props[key]}`, '')
+		? Object.keys(props).reduce(
+				(str, key) => `${str}; ${camelCaseToDash(key)}: ${props[key as keyof Properties]}`,
+				''
+			)
 		: '';
+
+// Group actions by their group property
+const groupActions = (actions: commands): Map<string, commands> => {
+	const groups = new Map<string, commands>();
+	const ungrouped: commands = [];
+
+	actions.forEach((action) => {
+		if (action.group) {
+			const existing = groups.get(action.group) || [];
+			groups.set(action.group, [...existing, action]);
+		} else {
+			ungrouped.push(action);
+		}
+	});
+
+	// Put ungrouped items first
+	if (ungrouped.length > 0) {
+		const result = new Map<string, commands>();
+		result.set('', ungrouped);
+		groups.forEach((value, key) => result.set(key, value));
+		return result;
+	}
+
+	return groups;
+};
+
+// Simple debounce utility
+const debounce = <T extends (...args: unknown[]) => unknown>(fn: T, delay: number) => {
+	let timeoutId: ReturnType<typeof setTimeout>;
+	return (...args: Parameters<T>) => {
+		clearTimeout(timeoutId);
+		timeoutId = setTimeout(() => fn(...args), delay);
+	};
+};
 
 export {
 	noop,
@@ -111,5 +153,7 @@ export {
 	updatePaletteStoreAfterActionExec,
 	getNonEmptyArray,
 	camelCaseToDash,
-	toCssString
+	toCssString,
+	groupActions,
+	debounce
 };

@@ -1,0 +1,36 @@
+import type { Snippet } from 'svelte';
+import type { commands, className, action } from '../types';
+import type { Properties } from 'csstype';
+interface Props {
+    commands?: commands;
+    placeholder?: string;
+    shortcut?: string;
+    onOpen?: () => void;
+    onClose?: () => void;
+    onActionSelect?: (action: action) => void;
+    inputClass?: className;
+    overlayClass?: className;
+    paletteWrapperInnerClass?: className;
+    resultsContainerClass?: className;
+    resultContainerClass?: className;
+    optionSelectedClass?: className;
+    titleClass?: className;
+    subtitleClass?: className;
+    descriptionClass?: className;
+    keyboardButtonClass?: className;
+    unstyled?: boolean;
+    inputStyle?: Properties;
+    overlayStyle?: Properties;
+    paletteWrapperInnerStyle?: Properties;
+    resultsContainerStyle?: Properties;
+    resultContainerStyle?: Properties;
+    optionSelectedStyle?: Properties;
+    titleStyle?: Properties;
+    subtitleStyle?: Properties;
+    descriptionStyle?: Properties;
+    keyboardButtonStyle?: Properties;
+    emptyState?: Snippet;
+}
+declare const CommandPalette: import("svelte").Component<Props, {}, "">;
+type CommandPalette = ReturnType<typeof CommandPalette>;
+export default CommandPalette;

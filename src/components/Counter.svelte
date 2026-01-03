@@ -1,5 +1,9 @@
 <script lang="ts">
-	export let counter: number = 0;
+	interface Props {
+		counter?: number;
+	}
+
+	let { counter = 0 }: Props = $props();
 </script>
 
 <div

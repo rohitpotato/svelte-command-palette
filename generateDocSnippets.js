@@ -1,16 +1,19 @@
 import fs from 'fs/promises';
 import path from 'path';
-import shiki from 'shiki';
+import { createHighlighter } from 'shiki';
 
 export const generateSnippets = async () => {
 	const __dirname = path.dirname('');
 	const files = await fs.readdir(path.join(__dirname, './snippets'));
-	const highlighter = await shiki.getHighlighter({ theme: 'github-dark-dimmed' });
+	const highlighter = await createHighlighter({
+		themes: ['github-dark-dimmed'],
+		langs: ['svelte']
+	});
 	// for each file, convert to html
 	const generatedMarkup = files.map(async (file) => {
 		console.log(`Generating docs: ${file}`);
 		const content = await fs.readFile(path.join(__dirname, `./snippets/${file}`), 'utf-8');
-		const html = highlighter.codeToHtml(content, { lang: 'svelte' });
+		const html = highlighter.codeToHtml(content, { lang: 'svelte', theme: 'github-dark-dimmed' });
 		return {
 			html,
 			fileName: file

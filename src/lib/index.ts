@@ -4,5 +4,8 @@ import { defineActions } from './utils';
 import { paletteStore } from './store/PaletteStore';
 import createStoreMethods from './utils/createStoreMethods';
 
+// Type exports
+export type { action, commands, storeParams, ActionId, onRunParams } from './types';
+
 export default CommandPalette;
 export { Portal, defineActions, paletteStore, createStoreMethods };

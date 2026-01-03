@@ -1,7 +1,10 @@
+import type { Snippet } from 'svelte';
 import type createActionMap from '$lib/utils/createActionMap';
 import type createStoreMethods from '$lib/utils/createStoreMethods';
+import type { Properties } from 'csstype';
 
 export type ActionId = number | string | null;
+
 export type onRunParams = {
 	action: action;
 	storeProps: storeParams;
@@ -17,7 +20,10 @@ export type action = {
 	onRun?: (args: onRunParams) => void;
 	keywords?: Array<string>;
 	shortcut?: string;
+	icon?: string;
+	group?: string;
 };
+
 export type commands = Array<action>;
 
 export interface storeParams {
@@ -34,7 +40,7 @@ export interface storeParams {
 }
 
 export interface actionMap {
-	[key: ActionId]: action;
+	[key: string | number]: action;
 }
 
 export interface shortCutMap {
@@ -43,6 +49,7 @@ export interface shortCutMap {
 
 export type className = string | null;
 export type cssStyle = string | null;
+
 export interface themeContext {
 	inputClass: className;
 	overlayClass: className;
@@ -55,7 +62,7 @@ export interface themeContext {
 	descriptionClass: className;
 	keyboardButtonClass: className;
 	unstyled: boolean;
-	inputStyle;
+	inputStyle: cssStyle;
 	overlayStyle: cssStyle;
 	paletteWrapperInnerStyle: cssStyle;
 	resultsContainerStyle: cssStyle;
@@ -65,4 +72,55 @@ export interface themeContext {
 	subtitleStyle: cssStyle;
 	descriptionStyle: cssStyle;
 	keyboardButtonStyle: cssStyle;
+}
+
+// Component prop types for Svelte 5
+export interface CommandPaletteProps {
+	commands?: commands;
+	placeholder?: string;
+	shortcut?: string;
+	// Component-level event callbacks
+	onOpen?: () => void;
+	onClose?: () => void;
+	onActionSelect?: (action: action) => void;
+	// Style classes
+	inputClass?: className;
+	overlayClass?: className;
+	paletteWrapperInnerClass?: className;
+	resultsContainerClass?: className;
+	resultContainerClass?: className;
+	optionSelectedClass?: className;
+	titleClass?: className;
+	subtitleClass?: className;
+	descriptionClass?: className;
+	keyboardButtonClass?: className;
+	unstyled?: boolean;
+	// Style objects
+	inputStyle?: Properties;
+	overlayStyle?: Properties;
+	paletteWrapperInnerStyle?: Properties;
+	resultsContainerStyle?: Properties;
+	resultContainerStyle?: Properties;
+	optionSelectedStyle?: Properties;
+	titleStyle?: Properties;
+	subtitleStyle?: Properties;
+	descriptionStyle?: Properties;
+	keyboardButtonStyle?: Properties;
+	// Custom rendering
+	emptyState?: Snippet;
+	resultItem?: Snippet<[action, boolean]>;
+}
+
+export interface PortalProps {
+	target?: string;
+	children?: Snippet;
+}
+
+export interface KeyboardButtonProps {
+	children?: Snippet;
+	onKeyboardButtonClicked?: (detail: { event: MouseEvent }) => void;
+}
+
+export interface ResultProps {
+	action: action;
 }
