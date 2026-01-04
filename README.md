@@ -10,7 +10,7 @@ A beautiful, accessible, and fully customizable command palette for Svelte 5 app
 
 ## Demo
 
-![svelte-command-palette](https://rohit-misc.s3.ap-south-1.amazonaws.com/svelte-command-palette.gif)
+![svelte-command-palette](https://svelte-command-palette.s3.eu-north-1.amazonaws.com/ScreenRecording2026-01-04at5.53.00AM-ezgif.com-video-to-gif-converter.gif)
 
 ## ✨ Features
 
