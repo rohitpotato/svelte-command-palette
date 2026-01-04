@@ -1,13 +1,163 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
+	import { goto } from '$app/navigation';
 	import Sidebar from '../../components/Sidebar.svelte';
+	import CommandPalette, { defineActions, createStoreMethods } from '$lib';
+	import { 
+		BookOpen, 
+		Zap, 
+		FileCode, 
+		Target, 
+		Database, 
+		Paintbrush, 
+		Moon,
+		Keyboard,
+		Puzzle,
+		Home,
+		Github
+	} from 'lucide-svelte';
 
 	interface Props {
 		children: Snippet;
 	}
 
 	let { children }: Props = $props();
+	const paletteMethods = createStoreMethods();
 </script>
+
+<!-- Define Lucide icon snippets -->
+{#snippet bookOpenIcon()}
+	<BookOpen size={18} />
+{/snippet}
+
+{#snippet zapIcon()}
+	<Zap size={18} />
+{/snippet}
+
+{#snippet fileCodeIcon()}
+	<FileCode size={18} />
+{/snippet}
+
+{#snippet targetIcon()}
+	<Target size={18} />
+{/snippet}
+
+{#snippet databaseIcon()}
+	<Database size={18} />
+{/snippet}
+
+{#snippet paintbrushIcon()}
+	<Paintbrush size={18} />
+{/snippet}
+
+{#snippet moonIcon()}
+	<Moon size={18} />
+{/snippet}
+
+{#snippet keyboardIcon()}
+	<Keyboard size={18} />
+{/snippet}
+
+{#snippet puzzleIcon()}
+	<Puzzle size={18} />
+{/snippet}
+
+{#snippet homeIcon()}
+	<Home size={18} />
+{/snippet}
+
+{#snippet githubIcon()}
+	<Github size={18} />
+{/snippet}
+
+<CommandPalette
+	commands={defineActions([
+		{
+			title: 'Getting Started',
+			subTitle: 'Installation and quick start guide',
+			icon: bookOpenIcon,
+			group: 'Documentation',
+			onRun: () => goto('/docs/installation'),
+			shortcut: 'G I'
+		},
+		{
+			title: 'Quick Start',
+			subTitle: 'Get up and running in 5 minutes',
+			icon: zapIcon,
+			group: 'Documentation',
+			onRun: () => goto('/docs/quick-start'),
+			shortcut: 'G Q'
+		},
+		{
+			title: 'Command Palette API',
+			subTitle: 'Component props and configuration',
+			icon: fileCodeIcon,
+			group: 'API Reference',
+			onRun: () => goto('/docs/command-palette-api'),
+			shortcut: 'G A'
+		},
+		{
+			title: 'Define Actions',
+			subTitle: 'Creating and configuring actions',
+			icon: targetIcon,
+			group: 'API Reference',
+			onRun: () => goto('/docs/define-actions'),
+		},
+		{
+			title: 'Palette Store',
+			subTitle: 'Store methods and state management',
+			icon: databaseIcon,
+			group: 'API Reference',
+			onRun: () => goto('/docs/palette-store'),
+		},
+		{
+			title: 'Styling',
+			subTitle: 'Customize the look and feel',
+			icon: paintbrushIcon,
+			group: 'Customization',
+			onRun: () => goto('/docs/styling'),
+			shortcut: 'G S'
+		},
+		{
+			title: 'Theming',
+			subTitle: 'Light and dark mode support',
+			icon: moonIcon,
+			group: 'Customization',
+			onRun: () => goto('/docs/theming'),
+		},
+		{
+			title: 'Keyboard Shortcuts',
+			subTitle: 'Configure keyboard bindings',
+			icon: keyboardIcon,
+			group: 'Customization',
+			onRun: () => goto('/docs/shortcuts'),
+		},
+		{
+			title: 'Custom Components',
+			subTitle: 'Icons, groups, and empty states',
+			icon: puzzleIcon,
+			group: 'Customization',
+			onRun: () => goto('/docs/custom-components'),
+		},
+		{
+			title: 'Go to Homepage',
+			subTitle: 'Return to the main page',
+			icon: homeIcon,
+			group: 'Navigation',
+			onRun: () => goto('/'),
+			shortcut: 'G H'
+		},
+		{
+			title: 'View on GitHub',
+			subTitle: 'Check out the source code',
+			icon: githubIcon,
+			group: 'Navigation',
+			onRun: () => window.open('https://github.com/rohitpotato/svelte-command-palette', '_blank'),
+		}
+	])}
+	placeholder="Search documentation..."
+	shortcut="$mod+k"
+/>
 
 <div class="docs-layout">
 	<Sidebar />

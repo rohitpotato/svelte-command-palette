@@ -10,7 +10,7 @@ A beautiful, accessible, and fully customizable command palette for Svelte 5 app
 
 ## Demo
 
-![svelte-command-palette](https://rohit-misc.s3.ap-south-1.amazonaws.com/svelte-command-palette.gif)
+![svelte-command-palette](https://svelte-command-palette.s3.eu-north-1.amazonaws.com/ScreenRecording2026-01-04at5.53.00AM-ezgif.com-video-to-gif-converter.gif)
 
 ## ✨ Features
 
@@ -37,6 +37,47 @@ A beautiful, accessible, and fully customizable command palette for Svelte 5 app
 - **Focus Trap** - Keyboard focus stays within the palette
 - **Improved Accessibility** - Better ARIA attributes and keyboard handling
 - **Type Exports** - Export `action` type for TypeScript users
+
+## ⚠️ Breaking Changes (v1.x → v2.x)
+
+Version 2.0 is a complete rewrite for **Svelte 5** and includes breaking changes:
+
+| Change | v1.x (Svelte 3/4) | v2.x (Svelte 5) |
+|--------|-------------------|-----------------|
+| Svelte version | Svelte 3/4 | Svelte 5+ |
+| Props syntax | `export let` | `$props()` runes |
+| Event handlers | `on:click` | `onclick` |
+| Slots | `<slot />` | `{#snippet}` / `{@render}` |
+| Reactivity | `$:` statements | `$derived`, `$effect` |
+
+### New Props in v2.0
+- `shortcut` - Customize the keyboard shortcut (default: `$mod+k`)
+- `onOpen` - Callback when palette opens
+- `onClose` - Callback when palette closes  
+- `onActionSelect` - Callback when an action is selected
+- `emptyState` - Custom snippet for empty results
+
+### New Action Properties
+- `icon` - Add an icon (emoji or string) to actions
+- `group` - Group related actions together
+
+## Using with Svelte 3/4
+
+If you're still using **Svelte 3 or 4**, install the legacy version:
+
+```bash
+# For Svelte 3/4 projects
+npm install svelte-command-palette@1.2.1
+```
+
+The v1.x documentation is available at the [v1.2.1 release](https://github.com/rohitpotato/svelte-command-palette/tree/v1.2.1).
+
+### Version Compatibility
+
+| svelte-command-palette | Svelte Version |
+|------------------------|----------------|
+| `^2.0.0` | Svelte 5+ |
+| `^1.2.1` | Svelte 3, 4 |
 
 ## Installation
 
@@ -150,7 +191,7 @@ type action = {
   description?: string;               // Additional description
   keywords?: string[];                // Search keywords
   shortcut?: string;                  // Keyboard shortcut (e.g., "$mod+k")
-  icon?: string;                      // Icon (emoji or string)
+  icon?: string | Snippet;           // Icon (emoji, URL, or Snippet for custom SVG/component)
   group?: string;                     // Group name for organizing actions
   onRun?: (params) => void;          // Callback when action is executed
   canActionRun?: (params) => boolean; // Conditional execution
@@ -236,6 +277,88 @@ const actions = defineActions([
   { title: 'Profile', group: 'User', onRun: () => goto('/profile') },
   { title: 'Logout', group: 'User', onRun: () => signOut() }
 ]);
+```
+
+### Custom Icons
+
+The `icon` property supports multiple formats:
+
+#### Emoji Icons
+```javascript
+const actions = defineActions([
+  { title: 'Settings', icon: '⚙️', onRun: () => {} },
+  { title: 'Search', icon: '🔍', onRun: () => {} }
+]);
+```
+
+#### Image URLs
+```javascript
+const actions = defineActions([
+  { title: 'GitHub', icon: 'https://github.com/favicon.ico', onRun: () => {} },
+  { title: 'Logo', icon: '/images/logo.svg', onRun: () => {} }
+]);
+```
+
+#### Custom SVG with Snippets
+```svelte
+<script>
+  import CommandPalette, { defineActions } from 'svelte-command-palette';
+
+  // Define a snippet for custom SVG
+  const settingsIcon = {
+    icon: settingsIconSnippet
+  };
+</script>
+
+{#snippet settingsIconSnippet()}
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <circle cx="12" cy="12" r="3"></circle>
+    <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+  </svg>
+{/snippet}
+
+<!-- Use in actions -->
+<script>
+  const actions = defineActions([
+    { 
+      title: 'Settings', 
+      icon: settingsIconSnippet,
+      onRun: () => openSettings() 
+    }
+  ]);
+</script>
+
+<CommandPalette commands={actions} />
+```
+
+#### Third-Party Icon Libraries (Lucide, Heroicons, etc.)
+```svelte
+<script>
+  import CommandPalette, { defineActions } from 'svelte-command-palette';
+  import { Settings, Search, User } from 'lucide-svelte';
+</script>
+
+{#snippet settingsIcon()}
+  <Settings size={20} />
+{/snippet}
+
+{#snippet searchIcon()}
+  <Search size={20} />
+{/snippet}
+
+{#snippet userIcon()}
+  <User size={20} />
+{/snippet}
+
+<script>
+  const actions = defineActions([
+    { title: 'Settings', icon: settingsIcon, onRun: () => {} },
+    { title: 'Search', icon: searchIcon, onRun: () => {} },
+    { title: 'Profile', icon: userIcon, onRun: () => {} }
+  ]);
+</script>
+
+<CommandPalette commands={actions} />
 ```
 
 ### Custom Empty State

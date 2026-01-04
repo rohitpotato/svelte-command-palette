@@ -20,7 +20,12 @@ export type action = {
 	onRun?: (args: onRunParams) => void;
 	keywords?: Array<string>;
 	shortcut?: string;
-	icon?: string;
+	/** 
+	 * Icon for the action. Can be:
+	 * - A string (emoji like "🚀" or image URL)
+	 * - A Snippet for custom SVG/component rendering
+	 */
+	icon?: string | Snippet;
 	group?: string;
 };
 

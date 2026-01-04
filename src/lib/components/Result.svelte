@@ -98,7 +98,10 @@
 >
 	{#if actionProp.icon}
 		<div class="cp-result-icon">
-			{#if typeof actionProp.icon === 'string'}
+			{#if typeof actionProp.icon === 'function'}
+				<!-- Snippet: custom SVG or component -->
+				{@render actionProp.icon()}
+			{:else if typeof actionProp.icon === 'string'}
 				{#if actionProp.icon.startsWith('http') || actionProp.icon.startsWith('/')}
 					<img src={actionProp.icon} alt="" width="20" height="20" />
 				{:else}
