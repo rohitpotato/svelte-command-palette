@@ -38,6 +38,47 @@ A beautiful, accessible, and fully customizable command palette for Svelte 5 app
 - **Improved Accessibility** - Better ARIA attributes and keyboard handling
 - **Type Exports** - Export `action` type for TypeScript users
 
+## ⚠️ Breaking Changes (v1.x → v2.x)
+
+Version 2.0 is a complete rewrite for **Svelte 5** and includes breaking changes:
+
+| Change | v1.x (Svelte 3/4) | v2.x (Svelte 5) |
+|--------|-------------------|-----------------|
+| Svelte version | Svelte 3/4 | Svelte 5+ |
+| Props syntax | `export let` | `$props()` runes |
+| Event handlers | `on:click` | `onclick` |
+| Slots | `<slot />` | `{#snippet}` / `{@render}` |
+| Reactivity | `$:` statements | `$derived`, `$effect` |
+
+### New Props in v2.0
+- `shortcut` - Customize the keyboard shortcut (default: `$mod+k`)
+- `onOpen` - Callback when palette opens
+- `onClose` - Callback when palette closes  
+- `onActionSelect` - Callback when an action is selected
+- `emptyState` - Custom snippet for empty results
+
+### New Action Properties
+- `icon` - Add an icon (emoji or string) to actions
+- `group` - Group related actions together
+
+## Using with Svelte 3/4
+
+If you're still using **Svelte 3 or 4**, install the legacy version:
+
+```bash
+# For Svelte 3/4 projects
+npm install svelte-command-palette@1.2.1
+```
+
+The v1.x documentation is available at the [v1.2.1 release](https://github.com/rohitpotato/svelte-command-palette/tree/v1.2.1).
+
+### Version Compatibility
+
+| svelte-command-palette | Svelte Version |
+|------------------------|----------------|
+| `^2.0.0` | Svelte 5+ |
+| `^1.2.1` | Svelte 3, 4 |
+
 ## Installation
 
 ```bash
