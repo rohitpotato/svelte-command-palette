@@ -458,7 +458,7 @@ npm run test:e2e
 
 ## License
 
-MIT © [Rohit Kashyap](https://rohitpotato.vercel.app/)
+MIT © [Rohit Kashyap](https://rohitpotato.xyz)
 
 ## Links
 
